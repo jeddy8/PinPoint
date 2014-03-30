@@ -10,47 +10,49 @@ import retrofit.RestAdapter;
 
 public class Global {
 	private static final String API_URL = "http://67.165.80.24:8000";
-    private static RestAdapter restAdapter = new RestAdapter.Builder()
-            .setEndpoint(API_URL)
-            .build();
-    private static HJClient client = restAdapter.create(HJClient.class);
-    private static User user = new User();
+	private static RestAdapter restAdapter = new RestAdapter.Builder()
+			.setEndpoint(API_URL).build();
+	private static HJClient client = restAdapter.create(HJClient.class);
+	private static User user = new User();
 
-    private static Context context;
-    private static Database database;
-    private static LocationManager locationManager = null;
+	private static Context context;
+	private static Database database;
+	private static LocationManager locationManager = null;
 
-    public static User getUser() {
-        return user;
-    }
-    public static void setUser(User newUser) {
-        user = newUser;
-    }
+	public static User getUser() {
+		return user;
+	}
 
-    public static void newInstance(LocationManager locMan) {
-        database = new Database(context);
-        locationManager = locMan;
-    }
-    public static Database getDatabase() {
-        return database;
-    }
+	public static void setUser(User newUser) {
+		user = newUser;
+	}
 
-    public static void setContext(Context con) {
-        context = con;
-    }
-    public static Context getContext() {
-        return context;
-    }
+	public static void newInstance(LocationManager locMan) {
+		database = new Database(context);
+		locationManager = locMan;
+	}
 
-    public static HJClient getClient() {
-        return client;
-    }
+	public static Database getDatabase() {
+		return database;
+	}
 
-    public static String getRootUrl() {
-        return API_URL;
-    }
+	public static void setContext(Context con) {
+		context = con;
+	}
 
-    public static LocationManager getLocationManager() {
-        return locationManager;
-    }
+	public static Context getContext() {
+		return context;
+	}
+
+	public static HJClient getClient() {
+		return client;
+	}
+
+	public static String getRootUrl() {
+		return API_URL;
+	}
+
+	public static LocationManager getLocationManager() {
+		return locationManager;
+	}
 }

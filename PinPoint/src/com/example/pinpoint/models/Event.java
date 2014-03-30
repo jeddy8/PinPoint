@@ -2,16 +2,16 @@ package com.example.pinpoint.models;
 import com.google.gson.annotations.SerializedName;
 
 public class Event {
-	@SerliazedName("_id")
+	@SerializedName("_id")
 	private String _id;
 	
-	@SerliazedName("teamLeader")
+	@SerializedName("teamLeader")
 	private String teamLeader;
 	
-	@SerliazedName("name")
+	@SerializedName("name")
 	private String name;
 	
-	@SerliazedName("sponsor")
+	@SerializedName("sponsor")
 	private String sponsor;
 	
 	public Event Event(){

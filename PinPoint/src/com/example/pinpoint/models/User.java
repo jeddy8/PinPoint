@@ -2,29 +2,29 @@ package com.example.pinpoint.models;
 import android.content.Context;
 import android.telephony.TelephonyManager;
 
-import com.example.app.resources.Global;
-import com.google.gson.annotations.SeializedName;
+import com.example.pinpoint.resources.Global;
+import com.google.gson.annotations.SerializedName;
 
 public class User {
-	@SerliazedName("_id")
+	@SerializedName("_id")
 	private String _id;
 	
-	@SerliazedName("email")
+	@SerializedName("email")
 	private String email;
 	
-	@SerliazedName("phone")
+	@SerializedName("phone")
 	private String phone;
 	
-	@SerliazedName("name")
+	@SerializedName("name")
 	private String name;
 	
-	@SerliazedName("role")
+	@SerializedName("role")
 	private String role;
 	
-	@SerliazedName("verfied")
+	@SerializedName("verfied")
 	private String verified;
 	
-	@SerliazedName("reputation")
+	@SerializedName("reputation")
 	private String reputation;
 	
 	private boolean isLoggedIn = false;
