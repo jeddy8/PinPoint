@@ -1,3 +1,4 @@
+package com.example.pinpoint.models;
 import com.google.gson.annotations.SerializedName;
 
 public class Event {
