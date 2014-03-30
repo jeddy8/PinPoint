@@ -1,6 +1,8 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.app.LoginActivity">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.app.LoginActivity" >
 
     <!-- Login progress -->
     <LinearLayout android:id="@+id/login_status"
@@ -30,13 +32,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
-        android:clickable="false"
-        android:background="@drawable/abc_ab_bottom_solid_light_holo">
+        android:clickable="false">
 
-        <LinearLayout style="@style/LoginFormContainer"
-            android:background="@drawable/abc_ab_bottom_transparent_light_holo"
-            android:weightSum="1"
-            android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:weightSum="1" >
 
             <EditText
                 android:id="@+id/email"
