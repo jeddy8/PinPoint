@@ -25,7 +25,7 @@ public class Database extends SQLiteOpenHelper {
 	private static final String KEY_NAME = "name";
 	private static final String KEY_EMAIL = "email";
 	private static final String KEY_PHONE = "phone";
-	private static final String KEY_ROLE = "role";
+	private static final String KEY_REPUTATION = "reputation";
 
 	public Database(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -36,7 +36,7 @@ public class Database extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		String CREATE_LOGIN_TABLE = "CREATE TABLE " + TABLE_LOGIN + "("
 				+ KEY_ID + " TEXT PRIMARY KEY," + KEY_NAME + " TEXT,"
-				+ KEY_EMAIL + " TEXT UNIQUE," + KEY_PHONE + " TEXT," + KEY_ROLE
+				+ KEY_EMAIL + " TEXT UNIQUE," + KEY_PHONE + " TEXT," + KEY_REPUTATION
 				+ " TEXT" + ")";
 		db.execSQL(CREATE_LOGIN_TABLE);
 	}
@@ -55,7 +55,7 @@ public class Database extends SQLiteOpenHelper {
 	 * Storing user details in database
 	 * */
 	public void addUser(String id, String name, String email, String phone,
-			String role) {
+			String reputation) {
 		SQLiteDatabase db = this.getWritableDatabase();
 
 		ContentValues values = new ContentValues();
@@ -63,7 +63,7 @@ public class Database extends SQLiteOpenHelper {
 		values.put(KEY_EMAIL, email); // Email
 		values.put(KEY_PHONE, phone); // Phone
 		values.put(KEY_ID, id); // Unique ID
-		values.put(KEY_ROLE, role); // Role
+		values.put(KEY_REPUTATION, reputation); // Role
 
 		// Inserting Row
 		db.insert(TABLE_LOGIN, null, values);
@@ -86,7 +86,7 @@ public class Database extends SQLiteOpenHelper {
 			user.put("email", cursor.getString(2));
 			user.put("phone", cursor.getString(3));
 			user.put("id", cursor.getString(4));
-			user.put("role", cursor.getString(5));
+			user.put("reputation", cursor.getString(5));
 		}
 		cursor.close();
 		db.close();

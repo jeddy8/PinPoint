@@ -44,7 +44,7 @@ public class User {
 		this.isLoggedIn = true;
 		TelephonyManager tMgr = (TelephonyManager) Global.getContext().getSystemService(Context.TELEPHONY_SERVICE);
 		this.phone = tMgr.getLine1Number();
-		Global.getDatabase().addUser(this._id,this.name,this.email,this.phone,this.role);
+		Global.getDatabase().addUser(this._id,this.name,this.email,this.phone,this.reputation);
 	}
 	
 	public void setEmail(String email){
