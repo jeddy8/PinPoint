@@ -2,6 +2,7 @@ package com.example.pinpoint;
 
 import java.util.Locale;
 
+import android.support.v4.app.ListFragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -15,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 public class MainActivity extends FragmentActivity {
@@ -68,15 +70,37 @@ public class MainActivity extends FragmentActivity {
 		}
 
 		@Override
-		public Fragment getItem(int position) {
+		public ListFragment getItem(int position) {
 			// getItem is called to instantiate the fragment for the given page.
 			// Return a DummySectionFragment (defined as a static inner class
 			// below) with the page number as its lone argument.
-			Fragment fragment = new PinsSectionFragment();
-			Bundle args = new Bundle();
-			args.putInt(PinsSectionFragment.ARG_SECTION_NUMBER, position + 1);
-			fragment.setArguments(args);
-			return fragment;
+			switch(position){
+			
+				case 0:
+					ListFragment fragment = new PinsFragment();
+					Bundle args = new Bundle();
+					args.putInt(PinsFragment.ARG_SECTION_NUMBER, position + 1);
+					fragment.setArguments(args);
+					return fragment;			
+				case 1:
+					ListFragment fragment2 = new TeamsFragment();
+					Bundle args2 = new Bundle();
+					args2.putInt(PinsFragment.ARG_SECTION_NUMBER, position + 2);
+					fragment2.setArguments(args2);
+					return fragment2;
+					
+				case 2:
+					ListFragment fragment3 = new NotificationsFragment();
+					Bundle args3 = new Bundle();
+					args3.putInt(PinsFragment.ARG_SECTION_NUMBER, position + 3);
+					fragment3.setArguments(args3);
+					return fragment3;
+					
+				default:
+					return null;
+			
+			
+			}
 		}
 
 		@Override
@@ -104,26 +128,71 @@ public class MainActivity extends FragmentActivity {
 	 * A dummy fragment representing a section of the app, but that simply
 	 * displays dummy text.
 	 */
-	public static class PinsSectionFragment extends Fragment {
+	public static class PinsFragment extends ListFragment {
 		/**
 		 * The fragment argument representing the section number for this
 		 * fragment.
 		 */
 		public static final String ARG_SECTION_NUMBER = "section_number";
 
-		public PinsSectionFragment() {
+		public PinsFragment() {
 		}
 
 		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_pins,
-					container, false);
-			TextView dummyTextView = (TextView) rootView
-					.findViewById(R.id.section_label);
-			dummyTextView.setText(Integer.toString(getArguments().getInt(
-					ARG_SECTION_NUMBER)));
-			return rootView;
+		  public void onActivityCreated(Bundle savedInstanceState) {
+		    super.onActivityCreated(savedInstanceState);
+		    String[] values = new String[] { "Pin1", "Pin2", "Pin3", "Pin4", "Pin5",
+		    		"Pin6", "Pin7", "Pin8", "Pin9", "Pin10", "Pin11", "Pin12", "Pin13",
+		    		"iPhone", "WindowsMobile",
+		        "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
+		        "Linux", "OS/2" };
+		    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+		        android.R.layout.simple_list_item_1, values);
+		    setListAdapter(adapter);
+		}
+	}
+	
+	public static class TeamsFragment extends ListFragment {
+		/**
+		 * The fragment argument representing the section number for this
+		 * fragment.
+		 */
+		public static final String ARG_SECTION_NUMBER = "section_number";
+
+		public TeamsFragment() {
+		}
+
+		@Override
+		  public void onActivityCreated(Bundle savedInstanceState) {
+		    super.onActivityCreated(savedInstanceState);
+		    String[] values = new String[] { "Team1", "iPhone", "WindowsMobile",
+		        "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
+		        "Linux", "OS/2" };
+		    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+		        android.R.layout.simple_list_item_1, values);
+		    setListAdapter(adapter);
+		}
+	}
+	
+	public static class NotificationsFragment extends ListFragment {
+		/**
+		 * The fragment argument representing the section number for this
+		 * fragment.
+		 */
+		public static final String ARG_SECTION_NUMBER = "section_number";
+
+		public NotificationsFragment() {
+		}
+
+		@Override
+		  public void onActivityCreated(Bundle savedInstanceState) {
+		    super.onActivityCreated(savedInstanceState);
+		    String[] values = new String[] { "Notification1", "iPhone", "WindowsMobile",
+		        "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
+		        "Linux", "OS/2" };
+		    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+		        android.R.layout.simple_list_item_1, values);
+		    setListAdapter(adapter);
 		}
 	}
 
