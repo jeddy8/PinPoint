@@ -6,6 +6,6 @@
     <string name="action_logout">Logout</string>
     <string name="title_section1">Pins</string>
     <string name="title_section2">Teams</string>
-    <string name="title_section3">Section 3</string>
+    <string name="title_section3">Notifications</string>
 
 </resources>
