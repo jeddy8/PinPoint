@@ -19,7 +19,7 @@
 
 <resources>
 
-    <style name="Theme.Pinpoint" parent="@android:style/Theme.Holo.Light">
+    <style name="AppTheme" parent="@android:style/Theme.Holo.Light">
         <item name="android:actionBarItemBackground">@drawable/selectable_background_pinpoint</item>
         <item name="android:popupMenuStyle">@style/PopupMenu.Pinpoint</item>
         <item name="android:dropDownListViewStyle">@style/DropDownListView.Pinpoint</item>
