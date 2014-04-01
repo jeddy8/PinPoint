@@ -1,5 +1,7 @@
 package com.example.pinpoint;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import android.support.v4.app.ListFragment;
@@ -134,6 +136,8 @@ public class MainActivity extends FragmentActivity {
 		 * fragment.
 		 */
 		public static final String ARG_SECTION_NUMBER = "section_number";
+		public ArrayList<Pin> pins = new ArrayList<Pin>();
+		
 
 		public PinsFragment() {
 		}
@@ -141,13 +145,16 @@ public class MainActivity extends FragmentActivity {
 		@Override
 		  public void onActivityCreated(Bundle savedInstanceState) {
 		    super.onActivityCreated(savedInstanceState);
+		    //pins.add (new Pin("323 High St","Pothole"));
+		    for (int i = 0; i<20; i++){
+		    	pins.add(new Pin("Pin Location Dummy "+i, "Pin Type Dummy "+i));
+		    }
+		    /*
 		    String[] values = new String[] { "Pin1", "Pin2", "Pin3", "Pin4", "Pin5",
-		    		"Pin6", "Pin7", "Pin8", "Pin9", "Pin10", "Pin11", "Pin12", "Pin13",
-		    		"iPhone", "WindowsMobile",
-		        "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
-		        "Linux", "OS/2" };
+		    		"Pin6", "Pin7", "Pin8", "Pin9", "Pin10", "Pin11", "Pin12", "Pin13" };
 		    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-		        android.R.layout.simple_list_item_1, values);
+		        android.R.layout.simple_list_item_1, values);*/
+		    PinAdapter adapter = new PinAdapter(getActivity(),pins);
 		    setListAdapter(adapter);
 		}
 	}
@@ -165,9 +172,8 @@ public class MainActivity extends FragmentActivity {
 		@Override
 		  public void onActivityCreated(Bundle savedInstanceState) {
 		    super.onActivityCreated(savedInstanceState);
-		    String[] values = new String[] { "Team1", "iPhone", "WindowsMobile",
-		        "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
-		        "Linux", "OS/2" };
+		    String[] values = new String[] { "Team1", "Team2", "Team3", "Team4", "Team5",
+		    		"Team6", "Team7", "Team8", "Team9", "Team10", "Team11", "Team12", "Team13" };
 		    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
 		        android.R.layout.simple_list_item_1, values);
 		    setListAdapter(adapter);
@@ -187,9 +193,9 @@ public class MainActivity extends FragmentActivity {
 		@Override
 		  public void onActivityCreated(Bundle savedInstanceState) {
 		    super.onActivityCreated(savedInstanceState);
-		    String[] values = new String[] { "Notification1", "iPhone", "WindowsMobile",
-		        "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
-		        "Linux", "OS/2" };
+		    String[] values = new String[] { "Notification1", "Notification2", "Notification3",
+		    		"Notification4", "Notification5", "Notification6", "Notification7", "Notification8", 
+		    		"Notification9", "Notification10", "Notification11", "Notification12", "Notification13" };
 		    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
 		        android.R.layout.simple_list_item_1, values);
 		    setListAdapter(adapter);
