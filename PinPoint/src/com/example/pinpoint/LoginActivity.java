@@ -54,6 +54,7 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_login);
+        
 
         // Set up the login form.
         mEmail = getIntent().getStringExtra(EXTRA_EMAIL);
@@ -79,11 +80,16 @@ public class LoginActivity extends Activity {
         findViewById(R.id.sign_in_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                attemptLogin();
+                login();
             }
         });
     }
-
+    
+    public void login(){
+    	Intent feed = new Intent(getApplicationContext(), MainActivity.class);
+        feed.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(feed);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

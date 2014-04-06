@@ -18,6 +18,7 @@ public class Global {
 	private static Context context;
 	private static Database database;
 	private static LocationManager locationManager = null;
+	
 
 	public static User getUser() {
 		return user;
