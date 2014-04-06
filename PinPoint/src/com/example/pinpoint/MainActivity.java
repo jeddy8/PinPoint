@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class MainActivity extends FragmentActivity {
@@ -37,6 +38,7 @@ public class MainActivity extends FragmentActivity {
 	 * The {@link ViewPager} that will host the section contents.
 	 */
 	ViewPager mViewPager;
+	ListView pinlist;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -149,7 +151,6 @@ public class MainActivity extends FragmentActivity {
 		    for (int i = 0; i<20; i++){
 		    	pins.add(new Pin("Pin Location Dummy "+i, "Pin Type Dummy "+i));
 		    }
-
 		    PinAdapter adapter = new PinAdapter(getActivity(),pins);
 		    setListAdapter(adapter);
 		}

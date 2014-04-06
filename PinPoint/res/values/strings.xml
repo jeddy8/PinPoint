@@ -3,11 +3,12 @@
 
     <string name="app_name">PinPoint</string>
     <string name="action_settings">Settings</string>
+    <string name="action_pin">Pin</string>
     <string name="action_logout">Logout</string>
     <string name="title_section1">Pins</string>
     <string name="title_section2">Teams</string>
     <string name="title_section3">Notifications</string>
-
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_view_pin">ViewPinActivity</string>
 
 </resources>
