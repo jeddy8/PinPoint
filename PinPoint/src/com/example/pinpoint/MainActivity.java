@@ -149,11 +149,7 @@ public class MainActivity extends FragmentActivity {
 		    for (int i = 0; i<20; i++){
 		    	pins.add(new Pin("Pin Location Dummy "+i, "Pin Type Dummy "+i));
 		    }
-		    /*
-		    String[] values = new String[] { "Pin1", "Pin2", "Pin3", "Pin4", "Pin5",
-		    		"Pin6", "Pin7", "Pin8", "Pin9", "Pin10", "Pin11", "Pin12", "Pin13" };
-		    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-		        android.R.layout.simple_list_item_1, values);*/
+
 		    PinAdapter adapter = new PinAdapter(getActivity(),pins);
 		    setListAdapter(adapter);
 		}

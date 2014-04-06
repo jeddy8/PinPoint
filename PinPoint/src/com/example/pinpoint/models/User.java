@@ -35,15 +35,17 @@ public class User {
 	}
 	
 	public Boolean getIsLoggedIn(){
+		/*
 		if(Global.getDatabase().getRowCount()>0)
-			this.isLoggedIn = true;
+			this.isLoggedIn = true;*/
 		return isLoggedIn;
 	}
 	
 	public void login(){
 		this.isLoggedIn = true;
+		/*
 		TelephonyManager tMgr = (TelephonyManager) Global.getContext().getSystemService(Context.TELEPHONY_SERVICE);
-		this.phone = tMgr.getLine1Number();
+		this.phone = tMgr.getLine1Number();*/
 		Global.getDatabase().addUser(this._id,this.name,this.email,this.phone,this.role);
 	}
 	

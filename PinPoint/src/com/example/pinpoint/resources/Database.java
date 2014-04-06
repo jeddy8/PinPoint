@@ -15,7 +15,7 @@ public class Database extends SQLiteOpenHelper {
 	private static final int DATABASE_VERSION = 1;
 
 	// Database Name
-	private static final String DATABASE_NAME = "buzzbuddy";
+	private static final String DATABASE_NAME = "pinpoint";
 
 	// Login table name
 	private static final String TABLE_LOGIN = "user";
@@ -26,6 +26,7 @@ public class Database extends SQLiteOpenHelper {
 	private static final String KEY_EMAIL = "email";
 	private static final String KEY_PHONE = "phone";
 	private static final String KEY_ROLE = "role";
+	//private static final String KEY_REPUTATION = "reputation";
 
 	public Database(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -64,6 +65,7 @@ public class Database extends SQLiteOpenHelper {
 		values.put(KEY_PHONE, phone); // Phone
 		values.put(KEY_ID, id); // Unique ID
 		values.put(KEY_ROLE, role); // Role
+		//values.put(KEY_REPUTATION, 0); // Role
 
 		// Inserting Row
 		db.insert(TABLE_LOGIN, null, values);

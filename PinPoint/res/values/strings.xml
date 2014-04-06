@@ -8,4 +8,6 @@
     <string name="title_section2">Teams</string>
     <string name="title_section3">Notifications</string>
 
+    <string name="hello_world">Hello world!</string>
+
 </resources>
