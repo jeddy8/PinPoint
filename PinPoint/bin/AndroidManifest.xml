@@ -21,8 +21,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.pinpoint.LoginActivity"
-            android:label="@string/title_activity_login" >
+            android:name="com.example.pinpoint.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -32,6 +31,10 @@
         <activity
             android:name="com.example.pinpoint.ViewPinActivity"
             android:label="@string/title_activity_view_pin" >
+        </activity>
+        <activity
+            android:name="com.example.pinpoint.PinActivity"
+            android:label="@string/title_activity_pin" >
         </activity>
     </application>
 

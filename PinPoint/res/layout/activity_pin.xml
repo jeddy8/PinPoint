@@ -1,0 +1,50 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1"
+    tools:context="com.example.pinpoint.PinActivity"
+    tools:ignore="MergeRootFrame" >
+
+    <TextView
+        android:id="@+id/type_text"
+        android:layout_gravity="left"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:text="@string/type"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    
+    <Spinner
+        android:id="@+id/type_spinner"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/type_text"
+    	android:layout_toRightOf="@id/type_text" />
+
+    <EditText
+        android:id="@+id/description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/type_spinner"
+        android:hint="@string/prompt_description"
+        android:inputType="textMultiLine"
+        android:maxLines="5"
+        android:singleLine="false" />
+
+    <Button
+        android:id="@+id/pin_button"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/description"
+        android:layout_gravity="right"
+        android:layout_marginTop="16dp"
+        android:paddingLeft="32dp"
+        android:paddingRight="32dp"
+        android:text="@string/action_pin_btn" />
+
+    
+
+</RelativeLayout>

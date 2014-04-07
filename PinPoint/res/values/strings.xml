@@ -10,5 +10,7 @@
     <string name="title_section3">Notifications</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_view_pin">ViewPinActivity</string>
+    <string name="title_activity_pin">PinActivity</string>
+    
 
 </resources>

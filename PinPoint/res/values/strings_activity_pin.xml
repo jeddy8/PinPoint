@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="prompt_description">Description</string>
+    <string name="action_pin_btn">Pin It!</string>
+    <string name="type">Type</string>
+    <string-array name="pintype_array">
+        <item>Trash</item>
+        <item>Pot Hole</item>
+        <item>Other&#8230;</item>
+    </string-array>
+</resources>
