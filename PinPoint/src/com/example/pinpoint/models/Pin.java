@@ -1,7 +1,13 @@
-package com.example.pinpoint;
+package com.example.pinpoint.models;
+
+import com.google.gson.annotations.SerializedName;
 
 public class Pin {
+	
+	@SerializedName("location")
     String location;
+	
+	@SerializedName("type")
     String type;
     
     public Pin(String location, String type){

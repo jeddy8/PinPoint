@@ -18,6 +18,6 @@ public interface HJClient {
 	@POST("/user/login")
 	void login(@Body User user, Callback<User> callback);
 
-	@GET("/events")
-	void events(Callback<List<Event>> callback);
+	@GET("/pins")
+	void pins(Callback<List<Event>> callback);
 }

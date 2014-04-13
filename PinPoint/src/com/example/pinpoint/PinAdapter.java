@@ -2,6 +2,8 @@ package com.example.pinpoint;
 
 import java.util.ArrayList;
 
+import com.example.pinpoint.models.Pin;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;

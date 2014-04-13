@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import com.example.pinpoint.models.Pin;
+
 import android.support.v4.app.ListFragment;
 import android.content.Intent;
 import android.os.Bundle;
