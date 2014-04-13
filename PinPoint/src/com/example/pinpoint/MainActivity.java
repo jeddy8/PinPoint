@@ -171,6 +171,16 @@ public class MainActivity extends FragmentActivity {
 		    PinAdapter adapter = new PinAdapter(getActivity(),pins);
 		    setListAdapter(adapter);
 		}
+		
+		@Override
+	    public void onListItemClick(ListView l, View v, int position, long id) {
+	        // TODO Auto-generated method stub
+	        super.onListItemClick(l, v, position, id);
+	        Intent pinData = new Intent(getActivity().getBaseContext(),
+                    ViewPinActivity.class);
+		    //answerData.putExtra("qToAnswer", qToAnswer);
+		    startActivity(pinData);
+	    }
 	}
 	
 	public static class TeamsFragment extends ListFragment {
