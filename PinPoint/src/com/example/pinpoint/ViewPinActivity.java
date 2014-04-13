@@ -50,7 +50,7 @@ public class ViewPinActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
+	/*
 	public static class MapFragment extends Fragment {
 		
 		MapView m;
@@ -89,7 +89,7 @@ public class ViewPinActivity extends Activity {
 			super.onLowMemory();
 			m.onLowMemory();
 		}
-	}
+	}*/
 	
 
 	/**

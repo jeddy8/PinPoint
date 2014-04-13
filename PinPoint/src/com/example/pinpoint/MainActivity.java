@@ -74,7 +74,13 @@ public class MainActivity extends FragmentActivity {
 	        	Intent feed = new Intent(getApplicationContext(), PinActivity.class);
                 //feed.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(feed);
+                finish();
 	            return true;
+	        case R.id.action_map:
+	        	Intent mapfeed = new Intent(getApplicationContext(), MapActivity.class);
+			    //answerData.putExtra("qToAnswer", qToAnswer);
+			    startActivity(mapfeed);
+			    finish();
 	        default:
 	            return super.onOptionsItemSelected(item);
 	    }

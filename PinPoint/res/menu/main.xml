@@ -7,14 +7,20 @@
           android:showAsAction="ifRoom" />
     
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_map"
         android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/action_map"/>
+    
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="101"
         android:showAsAction="never"
         android:title="@string/action_settings"/>
     
     <item
         android:id="@+id/action_logout"
-        android:orderInCategory="100"
+        android:orderInCategory="102"
         android:showAsAction="never"
         android:title="@string/action_logout"/>
 

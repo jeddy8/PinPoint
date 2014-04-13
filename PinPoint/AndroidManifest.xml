@@ -13,8 +13,10 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        <meta-data android:name="com.google.android.gms.version"
-           android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
         <activity
             android:name="com.example.pinpoint.MainActivity"
             android:label="@string/app_name" >
@@ -22,8 +24,7 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.example.pinpoint.LoginActivity">
+        <activity android:name="com.example.pinpoint.LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -37,6 +38,10 @@
         <activity
             android:name="com.example.pinpoint.PinActivity"
             android:label="@string/title_activity_pin" >
+        </activity>
+        <activity
+            android:name="com.example.pinpoint.MapActivity"
+            android:label="@string/title_activity_map" >
         </activity>
     </application>
 
