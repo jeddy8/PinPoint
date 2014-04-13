@@ -1,6 +1,5 @@
 package com.example.pinpoint.resources;
 
-import android.app.Application;
 import android.content.Context;
 import android.location.LocationManager;
 
@@ -9,7 +8,7 @@ import com.example.pinpoint.models.User;
 import retrofit.RestAdapter;
 
 public class Global {
-	private static final String API_URL = "http://67.165.80.24:8000";
+	private static final String API_URL = "http://67.163.166.36:27017";
 	private static RestAdapter restAdapter = new RestAdapter.Builder()
 			.setEndpoint(API_URL).build();
 	private static HJClient client = restAdapter.create(HJClient.class);
