@@ -32,7 +32,7 @@ public class MapActivity extends Activity {
         .icon(BitmapDescriptorFactory
             .fromResource(R.drawable.ic_launcher)));
 
-    // Move the camera instantly to hamburg with a zoom of 15.
+    // Move the camera instantly to esb with a zoom of 15.
     map.moveCamera(CameraUpdateFactory.newLatLngZoom(ESB, 20));
 
     // Zoom in, animating the camera.

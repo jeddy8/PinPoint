@@ -1227,13 +1227,13 @@ containing a value of this type.
         public static final int action_bar_subtitle=0x7f060029;
         public static final int action_bar_title=0x7f060028;
         public static final int action_context_bar=0x7f060023;
-        public static final int action_logout=0x7f060056;
-        public static final int action_map=0x7f060055;
+        public static final int action_logout=0x7f060057;
+        public static final int action_map=0x7f060056;
         public static final int action_menu_divider=0x7f060019;
         public static final int action_menu_presenter=0x7f06001a;
         public static final int action_mode_close_button=0x7f06002a;
-        public static final int action_pin=0x7f060054;
-        public static final int action_settings=0x7f060053;
+        public static final int action_pin=0x7f060055;
+        public static final int action_settings=0x7f060054;
         public static final int activity_chooser_view_content=0x7f06002b;
         public static final int always=0x7f06000f;
         public static final int beginning=0x7f060014;
@@ -1266,7 +1266,8 @@ containing a value of this type.
         public static final int login_status=0x7f060042;
         public static final int login_status_message=0x7f060043;
         public static final int map=0x7f06004b;
-        public static final int mapView=0x7f060052;
+        public static final int map2=0x7f060051;
+        public static final int mapView=0x7f060053;
         public static final int middle=0x7f060015;
         public static final int never=0x7f06000d;
         public static final int none=0x7f060000;
@@ -1289,7 +1290,7 @@ containing a value of this type.
         public static final int search_plate=0x7f06003c;
         public static final int search_src_text=0x7f06003d;
         public static final int search_voice_btn=0x7f060041;
-        public static final int section_label=0x7f060051;
+        public static final int section_label=0x7f060052;
         public static final int shortcut=0x7f060034;
         public static final int showCustom=0x7f06000b;
         public static final int showHome=0x7f060008;

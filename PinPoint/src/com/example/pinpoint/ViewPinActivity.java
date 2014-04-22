@@ -24,10 +24,15 @@ public class ViewPinActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_pin);
+		
+		//String pinName = getIntent().getExtras()
+               // .getString("qToAnswer");
+		
+		
 
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
+					.add(R.id.container, new MapFragment()).commit();
 		}
 	}
 
@@ -53,14 +58,14 @@ public class ViewPinActivity extends Activity {
 	/*
 	public static class MapFragment extends Fragment {
 		
-		MapView m;
+		GoogleMap m;
 		
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, 
 				Bundle savedInstanceState) {
 			// inflat and return the layout
-			View v = inflater.inflate(R.layout.map_fragment, container, false);
-			m = (MapView) v.findViewById(R.id.mapView);
+			View v = inflater.inflate(R.layout.activity_view_pin, container, false);
+			m = (getFragmentManager().findFragmentById(R.id.map2)).getMap();
 			m.onCreate(savedInstanceState);
 			
 			return v;
@@ -89,8 +94,8 @@ public class ViewPinActivity extends Activity {
 			super.onLowMemory();
 			m.onLowMemory();
 		}
-	}*/
-	
+	}
+	*/
 
 	/**
 	 * A placeholder fragment containing a simple view.

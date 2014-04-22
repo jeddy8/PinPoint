@@ -182,9 +182,11 @@ public class MainActivity extends FragmentActivity {
 	    public void onListItemClick(ListView l, View v, int position, long id) {
 	        // TODO Auto-generated method stub
 	        super.onListItemClick(l, v, position, id);
+	        //String pinStuff = (String) l.getItemAtPosition(position);
 	        Intent pinData = new Intent(getActivity().getBaseContext(),
                     ViewPinActivity.class);
 		    //answerData.putExtra("qToAnswer", qToAnswer);
+	       // pinData.putExtra("pinStuff", pinStuff);
 		    startActivity(pinData);
 	    }
 	}
