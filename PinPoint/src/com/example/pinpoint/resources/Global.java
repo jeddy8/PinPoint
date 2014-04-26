@@ -8,7 +8,7 @@ import com.example.pinpoint.models.User;
 import retrofit.RestAdapter;
 
 public class Global {
-	private static final String API_URL = "http://67.163.166.36:27017";
+	private static final String API_URL = "http://24.131.120.142:5984";
 	private static RestAdapter restAdapter = new RestAdapter.Builder()
 			.setEndpoint(API_URL).build();
 	private static HJClient client = restAdapter.create(HJClient.class);
