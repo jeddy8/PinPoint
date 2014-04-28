@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 
+import com.example.pinpoint.models.Pin;
+import com.example.pinpoint.models.PinDB;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -31,12 +33,18 @@ public class MapActivity extends Activity {
         .snippet("description")
         .icon(BitmapDescriptorFactory
             .fromResource(R.drawable.ic_launcher)));
+    
+    for (Pin p : PinDB.pins){
+    	map.addMarker(new MarkerOptions().position(p.getLocation()));
+    }
 
     // Move the camera instantly to esb with a zoom of 15.
     map.moveCamera(CameraUpdateFactory.newLatLngZoom(ESB, 20));
 
     // Zoom in, animating the camera.
     map.animateCamera(CameraUpdateFactory.zoomTo(15), 2000, null);
+    
+    map.setMyLocationEnabled(true);
   }
 
   @Override

@@ -1,11 +1,12 @@
 package com.example.pinpoint.models;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.annotations.SerializedName;
 
 public class Pin {
 
 	@SerializedName("location")
-	String location;
+	LatLng location;
 
 	@SerializedName("type")
 	String type;
@@ -13,17 +14,17 @@ public class Pin {
 	@SerializedName("color")
 	String color;
 
-	public Pin(String location, String type) {
+	public Pin(LatLng location, String type) {
 		this.location = location;
 		this.type = type;
 		this.color = color;
 	}
 
-	public String getLocation() {
+	public LatLng getLocation() {
 		return location;
 	}
 
-	public void setLocation(String location) {
+	public void setLocation(LatLng location) {
 		this.location = location;
 	}
 

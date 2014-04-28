@@ -56,7 +56,7 @@ public class PinAdapter extends BaseAdapter {
         TextView text1 = twoLineListItem.getText1();
         TextView text2 = twoLineListItem.getText2();
 
-        text1.setText(pins.get(position).getLocation());
+        text1.setText(pins.get(position).getLocation().toString());
         text2.setText("" + pins.get(position).getType());
 
         return twoLineListItem;
