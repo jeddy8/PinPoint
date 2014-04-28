@@ -1,8 +1,15 @@
 package com.example.pinpoint;
 
+import com.example.pinpoint.models.Pin;
+import com.example.pinpoint.models.PinDB;
+import com.google.android.gms.maps.model.LatLng;
+
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
+import android.content.Context;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -10,11 +17,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.os.Build;
 
 public class PinActivity extends Activity {
 
+	private Spinner spinner;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -25,7 +34,8 @@ public class PinActivity extends Activity {
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
 		
-		Spinner spinner = (Spinner) findViewById(R.id.type_spinner);
+		
+		spinner = (Spinner) findViewById(R.id.type_spinner);
 		// Create an ArrayAdapter using the string array and a default spinner layout
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
 		        R.array.pintype_array, android.R.layout.simple_spinner_item);
@@ -33,6 +43,22 @@ public class PinActivity extends Activity {
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		// Apply the adapter to the spinner
 		spinner.setAdapter(adapter);
+		
+		findViewById(R.id.pin_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            	LocationManager locMgr =  (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+            	Location loc = locMgr.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            	EditText edtTxt = (EditText)findViewById(R.id.description);
+            	String description = edtTxt.getText().toString();
+            	PinDB.pins.add(new Pin(new LatLng(loc.getLatitude(),loc.getLongitude()),spinner.getSelectedItem().toString(),
+            			description));
+            }
+        });
+	}
+	
+	public void pinIt(){
+		
 	}
 
 	@Override
