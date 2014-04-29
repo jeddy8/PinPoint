@@ -1,5 +1,6 @@
 package com.example.pinpoint;
 
+import com.example.pinpoint.models.LocationTools;
 import com.example.pinpoint.models.Pin;
 import com.example.pinpoint.models.PinDB;
 import com.google.android.gms.maps.model.LatLng;
@@ -56,15 +57,14 @@ public class PinActivity extends Activity {
 	public void pinIt(){
 		LocationManager locMgr =  (LocationManager)getSystemService(Context.LOCATION_SERVICE);
     	Location loc = locMgr.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-    	double lat = loc.getLatitude();
-    	double lng = loc.getLongitude();
+    	LatLng latlng = new LatLng(loc.getLatitude(), loc.getLongitude());
     	
     	Boolean done = false;
     	
     	float[] results = new float[1];
     	for (Pin p : PinDB.pins){
     		LatLng pos = p.getLocation();
-        	Location.distanceBetween(lat, lng, pos.latitude, pos.longitude, results);
+        	Location.distanceBetween(latlng.latitude, latlng.longitude, pos.latitude, pos.longitude, results);
         	if (results[0] <= 5.0) {
         		p.colorIntensity();
         		done = true;
@@ -73,8 +73,9 @@ public class PinActivity extends Activity {
     	if (!done){
 	    	EditText edtTxt = (EditText)findViewById(R.id.description);
 	    	String description = edtTxt.getText().toString();
-	    	PinDB.pins.add(new Pin(new LatLng(lat,lng),spinner.getSelectedItem().toString(),
-	    			description));
+	    	String address = new LocationTools().convertToAddress(getBaseContext(),latlng);
+	    	PinDB.pins.add(new Pin(latlng,spinner.getSelectedItem().toString(),
+	    			description, address));
     	}
 	}
 

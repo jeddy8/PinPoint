@@ -12,7 +12,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_view_pin">Pin</string>
     <string name="title_activity_pin">Pin It</string>
-    <string name="title_activity_map">Map</string>
+    <string name="title_activity_map">Pins</string>
     
 
 </resources>

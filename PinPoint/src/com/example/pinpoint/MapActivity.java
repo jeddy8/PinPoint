@@ -23,6 +23,10 @@ public class MapActivity extends Activity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_map);
+    
+    int pinID = getIntent().getIntExtra("pin", 0);
+    Pin pin = PinDB.pins.get(pinID);
+    
     map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
         .getMap();
     Marker mtnlair = map.addMarker(new MarkerOptions().position(MTNLAIR)
@@ -40,9 +44,11 @@ public class MapActivity extends Activity {
     			.snippet(p.getDescription())
     			.icon(BitmapDescriptorFactory.defaultMarker(p.getColor())));
     }
+    
+    
 
     // Move the camera instantly to esb with a zoom of 15.
-    map.moveCamera(CameraUpdateFactory.newLatLngZoom(ESB, 20));
+    map.moveCamera(CameraUpdateFactory.newLatLngZoom(pin.getLocation(), 20));
 
     // Zoom in, animating the camera.
     map.animateCamera(CameraUpdateFactory.zoomTo(15), 2000, null);

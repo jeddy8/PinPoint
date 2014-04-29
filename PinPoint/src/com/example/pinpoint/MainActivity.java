@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
+import com.example.pinpoint.models.LocationTools;
 import com.example.pinpoint.models.Pin;
 import com.example.pinpoint.models.PinDB;
 import com.google.android.gms.maps.model.LatLng;
@@ -173,15 +174,11 @@ public class MainActivity extends FragmentActivity {
 		@Override
 		  public void onActivityCreated(Bundle savedInstanceState) {
 		    super.onActivityCreated(savedInstanceState);
-		    //pins.add (new Pin("323 High St","Pothole"));
-		    Random rand = new Random();
-		    double latmax = 39.670365;
-		    double latmin = 39.605885;
-		    double longmax = -79.912640;
-		    double longmin = -79.994847;
+		    LocationTools lct = new LocationTools();
 		    for (int i = 0; i<20; i++){
-		    	PinDB.pins.add(new Pin(new LatLng((rand.nextDouble() * (latmax - latmin)) + latmin
-		    			, (rand.nextDouble() * (longmax-longmin)) + longmin), "Pin Type Dummy "+i));
+		    	LatLng random = lct.randomLocation();
+		    	String address = lct.convertToAddress(getActivity().getBaseContext(),random);
+		    	PinDB.pins.add(new Pin(random, "Pin Type Dummy "+i, address));
 		    }
 		    PinAdapter adapter = new PinAdapter(getActivity(),PinDB.pins);
 		    setListAdapter(adapter);
@@ -193,9 +190,9 @@ public class MainActivity extends FragmentActivity {
 	        super.onListItemClick(l, v, position, id);
 	        //String pinStuff = (String) l.getItemAtPosition(position);
 	        Intent pinData = new Intent(getActivity().getBaseContext(),
-                    ViewPinActivity.class);
+                    MapActivity.class);
 		    //answerData.putExtra("qToAnswer", qToAnswer);
-	        //pinData.putExtra("pin", pins.get(position));
+	        pinData.putExtra("pin", position);
 		    startActivity(pinData);
 	    }
 	}
