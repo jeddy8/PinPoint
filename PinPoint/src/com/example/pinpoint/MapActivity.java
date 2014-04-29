@@ -35,7 +35,10 @@ public class MapActivity extends Activity {
             .fromResource(R.drawable.ic_launcher)));
     
     for (Pin p : PinDB.pins){
-    	map.addMarker(new MarkerOptions().position(p.getLocation()).title(p.getType()).snippet(p.getDescription()));
+    	map.addMarker(new MarkerOptions().position(p.getLocation())
+    			.title(p.getType())
+    			.snippet(p.getDescription())
+    			.icon(BitmapDescriptorFactory.defaultMarker(p.getColor())));
     }
 
     // Move the camera instantly to esb with a zoom of 15.

@@ -12,7 +12,7 @@ public class Pin {
 	String type;
 
 	@SerializedName("color")
-	String color;
+	float color;
 	
 	@SerializedName("description")
 	String description;
@@ -20,15 +20,15 @@ public class Pin {
 	public Pin(LatLng location, String type) {
 		this.location = location;
 		this.type = type;
-		this.description = description;
-		this.color = color;
+		this.description = null;
+		this.color = 180;
 	}
 	
 	public Pin(LatLng location, String type, String description) {
 		this.location = location;
 		this.type = type;
 		this.description = description;
-		this.color = color;
+		this.color = 180;
 	}
 
 	public LatLng getLocation() {
@@ -55,11 +55,12 @@ public class Pin {
 		this.description = description;
 	}
 
-	public String getColor() {
+	public float getColor() {
 		return color;
 	}
-
-	public void setColor() {
-		this.color = color;
+	
+	public void colorIntensity(){
+		if (color > 0)
+			color = color - 15;
 	}
 }
