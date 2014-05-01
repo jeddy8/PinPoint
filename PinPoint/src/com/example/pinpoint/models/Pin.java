@@ -1,46 +1,47 @@
 package com.example.pinpoint.models;
 
+import java.util.List;
+
 import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.annotations.SerializedName;
 
 public class Pin {
 
 	@SerializedName("location")
-	LatLng location;
+	List<Double> location;
 
 	@SerializedName("type")
 	String type;
 
 	@SerializedName("color")
-	float color;
+	String color;
 	
 	@SerializedName("description")
 	String description;
 	
-	@SerializedName("address")
-	String address;
-
-	public Pin(LatLng location, String type, String address) {
-		this.location = location;
-		this.type = type;
-		this.description = null;
-		this.color = 180;
-		this.address = address;
-	}
-	
-	public Pin(LatLng location, String type, String description, String address) {
+	public Pin(List<Double> location, String type) {
 		this.location = location;
 		this.type = type;
 		this.description = description;
-		this.color = 180;
-		this.address = address;
+		this.color = color;
+	}
+	
+	public Pin(List<Double> location, String type, String description) {
+		this.location = location;
+		this.type = type;
+		this.description = description;
+		this.color = color;
 	}
 
-	public LatLng getLocation() {
+	public Pin() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public List<Double> getLocation() {
 		return location;
 	}
 
-	public void setLocation(LatLng location) {
+	public void setLocation(List<Double> location) {
 		this.location = location;
 	}
 
@@ -60,17 +61,11 @@ public class Pin {
 		this.description = description;
 	}
 
-	public float getColor() {
+	public String getColor() {
 		return color;
 	}
-	
-	
-	public String getAddress() {
-		return address;
-	}
 
-	public void colorIntensity(){
-		if (color > 0)
-			color = color - 15;
+	public void setColor() {
+		this.color = color;
 	}
 }

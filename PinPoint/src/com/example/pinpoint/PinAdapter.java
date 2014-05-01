@@ -1,6 +1,7 @@
 package com.example.pinpoint;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.example.pinpoint.models.Pin;
 
@@ -17,9 +18,9 @@ import android.widget.TwoLineListItem;
 public class PinAdapter extends BaseAdapter {
 
     private Context context;
-    private ArrayList<Pin> pins;
+    private List<Pin> pins;
 
-    public PinAdapter(Context context, ArrayList<Pin> pins) {
+    public PinAdapter(Context context, List<Pin> pins) {
         this.context = context;
         this.pins = pins;
     }
@@ -56,7 +57,8 @@ public class PinAdapter extends BaseAdapter {
         TextView text1 = twoLineListItem.getText1();
         TextView text2 = twoLineListItem.getText2();
 
-        text1.setText(pins.get(position).getAddress());
+        
+        text1.setText(pins.get(position).getLocation().toString());
         text2.setText("" + pins.get(position).getType());
 
         return twoLineListItem;

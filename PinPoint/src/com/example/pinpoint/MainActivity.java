@@ -1,35 +1,37 @@
 package com.example.pinpoint;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Random;
 
-import com.example.pinpoint.models.LocationTools;
-import com.example.pinpoint.models.Pin;
-import com.example.pinpoint.models.PinDB;
-import com.google.android.gms.maps.model.LatLng;
-
-import android.support.v4.app.ListFragment;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.NavUtils;
+import android.support.v4.app.ListFragment;
 import android.support.v4.view.ViewPager;
-import android.view.Gravity;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
+
+import com.example.pinpoint.models.Pin;
+import com.example.pinpoint.resources.Global;
 
 public class MainActivity extends FragmentActivity {
+	private ListView mListView;
+	private Context context;
+	private static GetPins mGetPins;
+	private PinAdapter pinAdapter;
+	
+	private static PinsFragment mPinsFragment;
 
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -51,7 +53,8 @@ public class MainActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
+		context = getApplicationContext();
+		mListView = new ListView(this);
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the app.
 		mSectionsPagerAdapter = new SectionsPagerAdapter(
@@ -60,7 +63,8 @@ public class MainActivity extends FragmentActivity {
 		// Set up the ViewPager with the sections adapter.
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
-
+		
+		mGetPins = new GetPins();
 	}
 
 	@Override
@@ -69,25 +73,68 @@ public class MainActivity extends FragmentActivity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-	    // Handle presses on the action bar items
-	    switch (item.getItemId()) {
-	        case R.id.action_pin:
-	        	Intent feed = new Intent(getApplicationContext(), PinActivity.class);
-                //feed.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(feed);
-                finish();
-	            return true;
-	        case R.id.action_map:
-	        	Intent mapfeed = new Intent(getApplicationContext(), MapActivity.class);
-			    //answerData.putExtra("qToAnswer", qToAnswer);
-			    startActivity(mapfeed);
-			    finish();
-	        default:
-	            return super.onOptionsItemSelected(item);
-	    }
+		// Handle presses on the action bar items
+		switch (item.getItemId()) {
+		case R.id.action_pin:
+			Intent feed = new Intent(getApplicationContext(), PinActivity.class);
+			// feed.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(feed);
+			finish();
+			return true;
+		case R.id.action_map:
+			Intent mapfeed = new Intent(getApplicationContext(),
+					MapActivity.class);
+			// answerData.putExtra("qToAnswer", qToAnswer);
+			startActivity(mapfeed);
+			finish();
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+	
+	/**
+	 * Represents an asynchronous login/registration task used to authenticate
+	 * the user.
+	 */
+	public class GetPins extends AsyncTask<Void, Void, Void> {
+		@SuppressWarnings("unchecked")
+		@Override
+		protected Void doInBackground(Void... params) {
+
+			Global.getClient().pins(new Callback() {
+
+				@Override
+				public void success(Object o, Response response) {
+					List<Pin> pins = (List<Pin>) o;
+					pinAdapter = new PinAdapter(context, pins);
+					mPinsFragment.setListAdapter(pinAdapter);
+					
+					// close PinActivity, or load ViewPinActivity, or whatever
+					// you want now.
+
+				}
+
+				@Override
+				public void failure(RetrofitError retrofitError) {
+					Log.i("Activity", retrofitError.toString());
+					// do something with the error and failure
+
+				}
+			});
+			return null;
+		}
+
+		@Override
+		protected void onCancelled() {
+			mGetPins = null;
+			//showProgress(false); //copy from LoginTask to show a spinning
+			// wheel
+			// this allows you to show the user that something is loading on
+			// slow network.
+		}
 	}
 
 	/**
@@ -105,32 +152,31 @@ public class MainActivity extends FragmentActivity {
 			// getItem is called to instantiate the fragment for the given page.
 			// Return a DummySectionFragment (defined as a static inner class
 			// below) with the page number as its lone argument.
-			switch(position){
-			
-				case 0:
-					ListFragment fragment = new PinsFragment();
-					Bundle args = new Bundle();
-					args.putInt(PinsFragment.ARG_SECTION_NUMBER, position + 1);
-					fragment.setArguments(args);
-					return fragment;			
-				case 1:
-					ListFragment fragment2 = new TeamsFragment();
-					Bundle args2 = new Bundle();
-					args2.putInt(PinsFragment.ARG_SECTION_NUMBER, position + 2);
-					fragment2.setArguments(args2);
-					return fragment2;
-					
-				case 2:
-					ListFragment fragment3 = new NotificationsFragment();
-					Bundle args3 = new Bundle();
-					args3.putInt(PinsFragment.ARG_SECTION_NUMBER, position + 3);
-					fragment3.setArguments(args3);
-					return fragment3;
-					
-				default:
-					return null;
-			
-			
+			switch (position) {
+
+			case 0:
+				ListFragment fragment = new PinsFragment();
+				Bundle args = new Bundle();
+				args.putInt(PinsFragment.ARG_SECTION_NUMBER, position + 1);
+				fragment.setArguments(args);
+				return fragment;
+			case 1:
+				ListFragment fragment2 = new TeamsFragment();
+				Bundle args2 = new Bundle();
+				args2.putInt(PinsFragment.ARG_SECTION_NUMBER, position + 2);
+				fragment2.setArguments(args2);
+				return fragment2;
+
+			case 2:
+				ListFragment fragment3 = new NotificationsFragment();
+				Bundle args3 = new Bundle();
+				args3.putInt(PinsFragment.ARG_SECTION_NUMBER, position + 3);
+				fragment3.setArguments(args3);
+				return fragment3;
+
+			default:
+				return null;
+
 			}
 		}
 
@@ -165,38 +211,35 @@ public class MainActivity extends FragmentActivity {
 		 * fragment.
 		 */
 		public static final String ARG_SECTION_NUMBER = "section_number";
-		//public ArrayList<Pin> pins = new ArrayList<Pin>();
-		
+
+		// public ArrayList<Pin> pins = new ArrayList<Pin>();
 
 		public PinsFragment() {
 		}
 
 		@Override
-		  public void onActivityCreated(Bundle savedInstanceState) {
-		    super.onActivityCreated(savedInstanceState);
-		    LocationTools lct = new LocationTools();
-		    for (int i = 0; i<20; i++){
-		    	LatLng random = lct.randomLocation();
-		    	String address = lct.convertToAddress(getActivity().getBaseContext(),random);
-		    	PinDB.pins.add(new Pin(random, "Pin Type Dummy "+i, address));
-		    }
-		    PinAdapter adapter = new PinAdapter(getActivity(),PinDB.pins);
-		    setListAdapter(adapter);
+		public void onActivityCreated(Bundle savedInstanceState) {
+			super.onActivityCreated(savedInstanceState);
+			
+			mPinsFragment = this;
+			mGetPins.execute();
+			// PinAdapter adapter = new PinAdapter(getActivity(),pin);
+			// setListAdapter(adapter);
 		}
-		
+
 		@Override
-	    public void onListItemClick(ListView l, View v, int position, long id) {
-	        // TODO Auto-generated method stub
-	        super.onListItemClick(l, v, position, id);
-	        //String pinStuff = (String) l.getItemAtPosition(position);
-	        Intent pinData = new Intent(getActivity().getBaseContext(),
-                    MapActivity.class);
-		    //answerData.putExtra("qToAnswer", qToAnswer);
-	        pinData.putExtra("pin", position);
-		    startActivity(pinData);
-	    }
+		public void onListItemClick(ListView l, View v, int position, long id) {
+			// TODO Auto-generated method stub
+			super.onListItemClick(l, v, position, id);
+			// String pinStuff = (String) l.getItemAtPosition(position);
+			Intent pinData = new Intent(getActivity().getBaseContext(),
+					ViewPinActivity.class);
+			// answerData.putExtra("qToAnswer", qToAnswer);
+			// pinData.putExtra("pin", pins.get(position));
+			startActivity(pinData);
+		}
 	}
-	
+
 	public static class TeamsFragment extends ListFragment {
 		/**
 		 * The fragment argument representing the section number for this
@@ -208,16 +251,17 @@ public class MainActivity extends FragmentActivity {
 		}
 
 		@Override
-		  public void onActivityCreated(Bundle savedInstanceState) {
-		    super.onActivityCreated(savedInstanceState);
-		    String[] values = new String[] { "Team1", "Team2", "Team3", "Team4", "Team5",
-		    		"Team6", "Team7", "Team8", "Team9", "Team10", "Team11", "Team12", "Team13" };
-		    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-		        android.R.layout.simple_list_item_1, values);
-		    setListAdapter(adapter);
+		public void onActivityCreated(Bundle savedInstanceState) {
+			super.onActivityCreated(savedInstanceState);
+			String[] values = new String[] { "Team1", "Team2", "Team3",
+					"Team4", "Team5", "Team6", "Team7", "Team8", "Team9",
+					"Team10", "Team11", "Team12", "Team13" };
+			ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+					getActivity(), android.R.layout.simple_list_item_1, values);
+			setListAdapter(adapter);
 		}
 	}
-	
+
 	public static class NotificationsFragment extends ListFragment {
 		/**
 		 * The fragment argument representing the section number for this
@@ -229,14 +273,16 @@ public class MainActivity extends FragmentActivity {
 		}
 
 		@Override
-		  public void onActivityCreated(Bundle savedInstanceState) {
-		    super.onActivityCreated(savedInstanceState);
-		    String[] values = new String[] { "Notification1", "Notification2", "Notification3",
-		    		"Notification4", "Notification5", "Notification6", "Notification7", "Notification8", 
-		    		"Notification9", "Notification10", "Notification11", "Notification12", "Notification13" };
-		    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-		        android.R.layout.simple_list_item_1, values);
-		    setListAdapter(adapter);
+		public void onActivityCreated(Bundle savedInstanceState) {
+			super.onActivityCreated(savedInstanceState);
+			String[] values = new String[] { "Notification1", "Notification2",
+					"Notification3", "Notification4", "Notification5",
+					"Notification6", "Notification7", "Notification8",
+					"Notification9", "Notification10", "Notification11",
+					"Notification12", "Notification13" };
+			ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+					getActivity(), android.R.layout.simple_list_item_1, values);
+			setListAdapter(adapter);
 		}
 	}
 
