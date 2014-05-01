@@ -7,6 +7,7 @@ import com.example.pinpoint.models.Pin;
 import com.example.pinpoint.models.PinResult.PinObject;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,9 +22,9 @@ public class PinAdapter extends BaseAdapter {
     private Context context;
     private List<PinObject> pins;
 
-    public PinAdapter(Context context, List<PinObject> pins2) {
+    public PinAdapter(Context context, List<PinObject> pins) {
         this.context = context;
-        this.pins = pins2;
+        this.pins = pins;
     }
 
     @Override
@@ -58,6 +59,8 @@ public class PinAdapter extends BaseAdapter {
         TextView text1 = twoLineListItem.getText1();
         TextView text2 = twoLineListItem.getText2();
 
+        text1.setTextColor(Color.BLACK);
+        text2.setTextColor(Color.BLACK);
         
         text1.setText(pins.get(position).getPin().getType());
         text2.setText("" + pins.get(position).getPin().getDescription());
