@@ -21,11 +21,11 @@ public interface HJClient {
 	@PUT("/pins")
 	void updatePin(@Body Pin pin, Callback<Pin> callback);
 	
-	@POST("/pins")
+	@POST("/pinpoint")
 	void pinIt(@Body Pin pin, Callback<Pin> callback);
 	
-	@GET("/_utils/pins/")
-	void pins(Callback<List<Pin>> callback);
+	@GET("/pinpoint/_design/pins/_view/all")
+	void pins(Callback<Result> callback);
 	
 	@POST("/teams")
 	void teams(@Body Teams team, Callback<Teams> callback);
