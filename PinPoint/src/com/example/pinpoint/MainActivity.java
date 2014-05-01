@@ -32,9 +32,9 @@ public class MainActivity extends FragmentActivity {
 	private ListView mListView;
 	private Context context;
 	private static GetPins mGetPins;
-	private static GetTeams mGetTeams;
+	//private static GetTeams mGetTeams;
 	private PinAdapter pinAdapter;
-	private TeamAdapter teamAdapter;
+	//private TeamAdapter teamAdapter;
 	
 	private static PinsFragment mPinsFragment;
 	private static TeamsFragment mTeamsFragment;
@@ -73,7 +73,7 @@ public class MainActivity extends FragmentActivity {
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 		
 		mGetPins = new GetPins();
-		mGetTeams = new GetTeams();
+		//mGetTeams = new GetTeams();
 	}
 
 	@Override
@@ -121,7 +121,7 @@ public class MainActivity extends FragmentActivity {
 					
 					pinAdapter = new PinAdapter(context, pins);
 					mPinsFragment.setListAdapter(pinAdapter);
-					mGetPins = null;
+					//mGetPins = null;
 					// close PinActivity, or load ViewPinActivity, or whatever
 					// you want now.
 				}
@@ -146,46 +146,46 @@ public class MainActivity extends FragmentActivity {
 		}
 	}
 	
-	/**
-	 * Represents an asynchronous login/registration task used to authenticate
-	 * the user.
-	 */
-	public class GetTeams extends AsyncTask<Void, Void, Void> {
-		@SuppressWarnings("unchecked")
-		@Override
-		protected Void doInBackground(Void... params) {
-
-			Global.getClient().pins(new Callback<PinResult>() {
-
-				@Override
-				public void success(PinResult result, Response response) {
-					List<TeamObject> teams = result.getRows();
-					teamAdapter = new teamAdapter(context,teams);
-					mTeamsFragment.setListAdapter(pinAdapter);
-					mGetTeams = null;
-					// close PinActivity, or load ViewPinActivity, or whatever
-					// you want now.
-				}
-
-				@Override
-					public void failure(RetrofitError retrofitError) {
-
-					// do something with the error and failure
-					mGetTeams = null;
-				}
-			});
-			return null;
-		}
-
-		@Override
-		protected void onCancelled() {
-			mGetTeams = null;
-			//showProgress(false); //copy from LoginTask to show a spinning
-			// wheel
-			// this allows you to show the user that something is loading on
-			// slow network.
-		}
-	}
+//	/**
+//	 * Represents an asynchronous login/registration task used to authenticate
+//	 * the user.
+//	 */
+//	public class GetTeams extends AsyncTask<Void, Void, Void> {
+//		@SuppressWarnings("unchecked")
+//		@Override
+//		protected Void doInBackground(Void... params) {
+//
+//			Global.getClient().pins(new Callback<PinResult>() {
+//
+//				@Override
+//				public void success(PinResult result, Response response) {
+//					List<TeamObject> teams = result.getRows();
+//					teamAdapter = new teamAdapter(context,teams);
+//					mTeamsFragment.setListAdapter(pinAdapter);
+//					mGetTeams = null;
+//					// close PinActivity, or load ViewPinActivity, or whatever
+//					// you want now.
+//				}
+//
+//				@Override
+//					public void failure(RetrofitError retrofitError) {
+//
+//					// do something with the error and failure
+//					mGetTeams = null;
+//				}
+//			});
+//			return null;
+//		}
+//
+//		@Override
+//		protected void onCancelled() {
+//			mGetTeams = null;
+//			//showProgress(false); //copy from LoginTask to show a spinning
+//			// wheel
+//			// this allows you to show the user that something is loading on
+//			// slow network.
+//		}
+//	}
 	
 	/**
 	 * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -304,7 +304,7 @@ public class MainActivity extends FragmentActivity {
 		public void onActivityCreated(Bundle savedInstanceState) {
 			super.onActivityCreated(savedInstanceState);
 			mTeamsFragment = this;
-			mGetTeams.execute();
+			//mGetTeams.execute();
 		}
 	}
 
