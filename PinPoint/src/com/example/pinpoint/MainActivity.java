@@ -33,13 +33,11 @@ public class MainActivity extends FragmentActivity {
 	private Context context;
 	private static GetPins mGetPins;
 	private static GetTeams mGetTeams;
-	private static GetNotifications mGetNotifications;
 	private PinAdapter pinAdapter;
 	private TeamAdapter teamAdapter;
 	
 	private static PinsFragment mPinsFragment;
 	private static TeamsFragment mTeamsFragment;
-	private static NotificationsFragment mNotificationsFragment;
 
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -188,6 +186,7 @@ public class MainActivity extends FragmentActivity {
 			// slow network.
 		}
 	}
+	
 	/**
 	 * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
 	 * one of the sections/tabs/pages.
@@ -322,14 +321,6 @@ public class MainActivity extends FragmentActivity {
 		@Override
 		public void onActivityCreated(Bundle savedInstanceState) {
 			super.onActivityCreated(savedInstanceState);
-			String[] values = new String[] { "Notification1", "Notification2",
-					"Notification3", "Notification4", "Notification5",
-					"Notification6", "Notification7", "Notification8",
-					"Notification9", "Notification10", "Notification11",
-					"Notification12", "Notification13" };
-			ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-					getActivity(), android.R.layout.simple_list_item_1, values);
-			setListAdapter(adapter);
 		}
 	}
 

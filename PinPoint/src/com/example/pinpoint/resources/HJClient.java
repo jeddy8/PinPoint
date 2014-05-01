@@ -19,6 +19,12 @@ public interface HJClient {
 	void login(@Body User user, Callback<User> callback);
 	
 	@PUT("/pinpoint")
+	void updateUser(@Body User user, Callback<User> callback);
+	
+	@GET("/pinpoint/_design/user/_view/all")
+	void user(Callback<UserResult> callback);
+	
+	@PUT("/pinpoint")
 	void updatePin(@Body Pin pin, Callback<Pin> callback);
 	
 	@POST("/pinpoint")
