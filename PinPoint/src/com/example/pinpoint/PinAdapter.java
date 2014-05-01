@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.pinpoint.models.Pin;
+import com.example.pinpoint.models.PinResult.PinObject;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -18,11 +19,11 @@ import android.widget.TwoLineListItem;
 public class PinAdapter extends BaseAdapter {
 
     private Context context;
-    private List<Pin> pins;
+    private List<PinObject> pins;
 
-    public PinAdapter(Context context, List<Pin> pins) {
+    public PinAdapter(Context context, List<PinObject> pins2) {
         this.context = context;
-        this.pins = pins;
+        this.pins = pins2;
     }
 
     @Override
@@ -58,8 +59,8 @@ public class PinAdapter extends BaseAdapter {
         TextView text2 = twoLineListItem.getText2();
 
         
-        text1.setText(pins.get(position).getType());
-        text2.setText("" + pins.get(position).getDescription());
+        text1.setText(pins.get(position).getPin().getType());
+        text2.setText("" + pins.get(position).getPin().getDescription());
 
         return twoLineListItem;
     }

@@ -14,6 +14,7 @@ import android.view.Menu;
 
 import com.example.pinpoint.models.Pin;
 import com.example.pinpoint.models.PinResult;
+import com.example.pinpoint.models.PinResult.PinObject;
 import com.example.pinpoint.resources.Global;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -33,6 +34,8 @@ public class MapActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_map);
+		
+		
 		map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
 				.getMap();
 		Marker mtnlair = map.addMarker(new MarkerOptions().position(MTNLAIR)
@@ -75,8 +78,9 @@ public class MapActivity extends Activity {
 				@Override
 				public void success(Object o, Response response) {
 					PinResult result = (PinResult) o;
-					List<Pin> pins = result.getRows();
-					for (Pin pin : pins) {
+					List<PinObject> pins = result.getRows();
+					for (PinObject p : pins) {
+						Pin pin = p.getPin();
 						LatLng position = new LatLng(pin.getLocation().get(0),
 								pin.getLocation().get(1));
 						map.addMarker(new MarkerOptions().position(position)

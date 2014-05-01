@@ -15,13 +15,13 @@ public class PinResult {
 	private int offset;
 	
 	@SerializedName("rows")
-	private List<Pin> rows = new ArrayList<Pin>();
+	private List<PinObject> rows = new ArrayList<PinObject>();
  	
  	
  	public PinResult(){
  	}
  	
- 	public PinResult(int total_row,int offset, List<Pin> rows){
+ 	public PinResult(int total_row,int offset, List<PinObject> rows){
  		total_row = this.total_rows;
  		offset = this.offset;
  		rows = this.rows;
@@ -39,10 +39,57 @@ public class PinResult {
 	public void setOffset(int offset) {
 		this.offset = offset;
 	}
-	public List<Pin> getRows() {
+	public List<PinObject> getRows() {
 		return rows;
 	}
-	public void setRows(List<Pin> rows) {
+	public void setRows(List<PinObject> rows) {
 		this.rows = rows;
+	}
+	
+	public class PinObject {
+		@SerializedName("id")
+		private String id;
+
+		@SerializedName("key")
+		private String key;
+		
+		@SuppressWarnings("unused")
+		public String getKey() {
+			return key;
+		}
+
+		@SuppressWarnings("unused")
+		public void setKey(String key) {
+			this.key = key;
+		}
+
+		@SuppressWarnings("unused")
+		public Pin getPin() {
+			return pin;
+		}
+
+		@SuppressWarnings("unused")
+		public void setPin(Pin pin) {
+			this.pin = pin;
+		}
+
+		@SerializedName("value")
+		private Pin pin;
+		
+		@SuppressWarnings("unused")
+		public PinObject() {
+		}
+		
+		@SuppressWarnings("unused")
+		public void setId(String id) {
+			this.id = id;
+		}
+		
+		@SuppressWarnings("unused")
+		public String getId() {
+			return this.id;
+		}
+		
+		
 	}
 }

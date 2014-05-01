@@ -24,6 +24,7 @@ import android.widget.ListView;
 
 import com.example.pinpoint.models.Pin;
 import com.example.pinpoint.models.PinResult;
+import com.example.pinpoint.models.PinResult.PinObject;
 import com.example.pinpoint.resources.Global;
 
 public class MainActivity extends FragmentActivity {
@@ -105,12 +106,11 @@ public class MainActivity extends FragmentActivity {
 		@Override
 		protected Void doInBackground(Void... params) {
 
-			Global.getClient().pins(new Callback() {
+			Global.getClient().pins(new Callback<PinResult>() {
 
 				@Override
-				public void success(Object o, Response response) {
-					PinResult result = (PinResult) o;
-					List<Pin> pins = result.getRows();
+				public void success(PinResult result, Response response) {
+					List<PinObject> pins = result.getRows();
 					
 					pinAdapter = new PinAdapter(context, pins);
 					mPinsFragment.setListAdapter(pinAdapter);
