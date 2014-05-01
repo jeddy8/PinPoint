@@ -41,6 +41,7 @@ public class PinActivity extends Activity {
 	
 	private View mPinDescription;
 	
+	
 	private Location mLocation;
 	private String mDescription;
 	@Override
@@ -54,7 +55,6 @@ public class PinActivity extends Activity {
 		}
 		
 		mPinDescription = findViewById(R.id.description);
-		
 		
 		spinner = (Spinner) findViewById(R.id.type_spinner);
 		// Create an ArrayAdapter using the string array and a default spinner layout
@@ -109,20 +109,20 @@ public class PinActivity extends Activity {
 //    	Boolean done = false;
 //    	
 //    	float[] results = new float[1];
-//    	//for (Pin p : PinDB.pins){
-//    		//LatLng pos = p.getLocation();
-//        	//Location.distanceBetween(latlng.latitude, latlng.longitude, pos.latitude, pos.longitude, results);
+//    	for (Pin p : PinDB.pins){
+//    		LatLng pos = p.getLocation();
+//        	Location.distanceBetween(latlng.latitude, latlng.longitude, pos.latitude, pos.longitude, results);
 //        	if (results[0] <= 5.0) {
-//        		//p.colorIntensity();
+//        		p.colorIntensity();
 //        		done = true;
 //        	}
-//        //}
+//        }
 //    	if (!done){
-//	    	//EditText edtTxt = (EditText)findViewById(R.id.description);
-//	    	//String description = edtTxt.getText().toString();
-//	    	//String address = new LocationTools().convertToAddress(getBaseContext(),latlng);
-//	    	//PinDB.pins.add(new Pin(latlng,spinner.getSelectedItem().toString(),
-//	    			//description, address));
+//	    	EditText edtTxt = (EditText)findViewById(R.id.description);
+//	    	String description = edtTxt.getText().toString();
+//	    	String address = new LocationTools().convertToAddress(getBaseContext(),latlng);
+//	    	PinDB.pins.add(new Pin(latlng,spinner.getSelectedItem().toString(),
+//	    			description, address));
 //    	}
 //	}
 
@@ -155,6 +155,7 @@ public class PinActivity extends Activity {
         	loc.add(mLocation.getLatitude());
         	loc.add(mLocation.getLongitude());
         	Pin pin = new Pin();
+        	pin.setType(spinner.getSelectedItem().toString());
         	pin.setLocation(loc);
         	pin.setDescription(mDescription);
             Global.getClient().pinIt(pin, new Callback() {

@@ -25,7 +25,7 @@ public interface HJClient {
 	void pinIt(@Body Pin pin, Callback<Pin> callback);
 	
 	@GET("/pinpoint/_design/pins/_view/all")
-	void pins(Callback<Result> callback);
+	void pins(Callback<PinResult> callback);
 	
 	@POST("/teams")
 	void teams(@Body Teams team, Callback<Teams> callback);

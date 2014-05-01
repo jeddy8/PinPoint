@@ -14,7 +14,7 @@ public class Pin {
 	String type;
 
 	@SerializedName("color")
-	String color;
+	Float color;
 	
 	@SerializedName("description")
 	String description;
@@ -61,7 +61,7 @@ public class Pin {
 		this.description = description;
 	}
 
-	public String getColor() {
+	public Float getColor() {
 		return color;
 	}
 

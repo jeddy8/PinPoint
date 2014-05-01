@@ -23,7 +23,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.pinpoint.models.Pin;
-import com.example.pinpoint.models.Result;
+import com.example.pinpoint.models.PinResult;
 import com.example.pinpoint.resources.Global;
 
 public class MainActivity extends FragmentActivity {
@@ -109,7 +109,7 @@ public class MainActivity extends FragmentActivity {
 
 				@Override
 				public void success(Object o, Response response) {
-					Result result = (Result) o;
+					PinResult result = (PinResult) o;
 					List<Pin> pins = result.getRows();
 					
 					pinAdapter = new PinAdapter(context, pins);
