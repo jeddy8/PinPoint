@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 
 import com.example.pinpoint.models.Pin;
+import com.example.pinpoint.models.PinResult;
 import com.example.pinpoint.resources.Global;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -23,82 +24,88 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapActivity extends Activity {
-  static final LatLng MTNLAIR = new LatLng(39.635053, -79.954028);
-  static final LatLng ESB = new LatLng(39.645480, -79.973254);
-  private GoogleMap map;
-  private mapIt mMapIt;
+	static final LatLng MTNLAIR = new LatLng(39.635053, -79.954028);
+	static final LatLng ESB = new LatLng(39.645480, -79.973254);
+	private GoogleMap map;
+	private mapIt mMapIt;
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_map);
-    map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
-        .getMap();
-    Marker mtnlair = map.addMarker(new MarkerOptions().position(MTNLAIR)
-        .title("Mountainlair"));
-    Marker esb = map.addMarker(new MarkerOptions()
-        .position(ESB)
-        .title("ESB")
-        .snippet("description")
-        .icon(BitmapDescriptorFactory
-            .fromResource(R.drawable.ic_launcher)));
-    
-    // Move the camera instantly to esb with a zoom of 15.
-    map.moveCamera(CameraUpdateFactory.newLatLngZoom(ESB, 20));
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_map);
+		map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
+				.getMap();
+		Marker mtnlair = map.addMarker(new MarkerOptions().position(MTNLAIR)
+				.title("Mountainlair"));
+		Marker esb = map.addMarker(new MarkerOptions()
+				.position(ESB)
+				.title("ESB")
+				.snippet("description")
+				.icon(BitmapDescriptorFactory
+						.fromResource(R.drawable.ic_launcher)));
 
-    // Zoom in, animating the camera.
-    map.animateCamera(CameraUpdateFactory.zoomTo(15), 2000, null);
-    
-    map.setMyLocationEnabled(true);
-    mMapIt = new mapIt();
-    mMapIt.execute();
-  }
+		// Move the camera instantly to esb with a zoom of 15.
+		map.moveCamera(CameraUpdateFactory.newLatLngZoom(ESB, 20));
 
-  @Override
-  public boolean onCreateOptionsMenu(Menu menu) {
-    getMenuInflater().inflate(R.menu.map, menu);
-    return true;
-  }
-  
-  /**
-   * Represents an asynchronous login/registration task used to authenticate
-   * the user.
-   */
-  public class mapIt extends AsyncTask<Void, Void, Void> {
-      @SuppressWarnings("unchecked")
+		// Zoom in, animating the camera.
+		map.animateCamera(CameraUpdateFactory.zoomTo(15), 2000, null);
+
+		map.setMyLocationEnabled(true);
+		mMapIt = new mapIt();
+		mMapIt.execute();
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.map, menu);
+		return true;
+	}
+
+	/**
+	 * Represents an asynchronous login/registration task used to authenticate
+	 * the user.
+	 */
+	public class mapIt extends AsyncTask<Void, Void, Void> {
+		@SuppressWarnings("unchecked")
 		@Override
-      protected Void doInBackground(Void... params) {
-      	
-          Global.getClient().pins(new Callback() {
+		protected Void doInBackground(Void... params) {
 
-              @Override
-              public void success(Object o, Response response) {
-              	List<Pin> pins = (List<Pin>) o;
-              	for(Pin pin:pins){
-              		LatLng position = new LatLng(pin.getLocation().get(0), pin.getLocation().get(1)) ;
-              		map.addMarker(new MarkerOptions().position(position).title(pin.getType()).snippet(pin.getDescription()));
-              	}              
-              	//close PinActivity, or load ViewPinActivity, or whatever you want now.
-                  
-              }
+			Global.getClient().pins(new Callback() {
 
-              @Override
-              public void failure(RetrofitError retrofitError) {
-                  
-              	//do something with the error and failure
-              	
-              }
-          });
-          return null;
-      }
+				@Override
+				public void success(Object o, Response response) {
+					PinResult result = (PinResult) o;
+					List<Pin> pins = result.getRows();
+					for (Pin pin : pins) {
+						LatLng position = new LatLng(pin.getLocation().get(0),
+								pin.getLocation().get(1));
+						map.addMarker(new MarkerOptions().position(position)
+								.title(pin.getType())
+								.snippet(pin.getDescription()));
+					}
+					// close PinActivity, or load ViewPinActivity, or whatever
+					// you want now.
 
-      @Override
-      protected void onCancelled() {
-          mMapIt = null;
-          //showProgress(false); //copy from LoginTask to show a spinning wheel
-          //this allows you to show the user that something is loading on slow network.
-      }
-  }
+				}
 
+				@Override
+				public void failure(RetrofitError retrofitError) {
+
+					// do something with the error and failure
+
+				}
+			});
+			return null;
+		}
+
+		@Override
+		protected void onCancelled() {
+			mMapIt = null;
+			// showProgress(false); //copy from LoginTask to show a spinning
+			// wheel
+			// this allows you to show the user that something is loading on
+			// slow network.
+		}
+	}
 
 }
