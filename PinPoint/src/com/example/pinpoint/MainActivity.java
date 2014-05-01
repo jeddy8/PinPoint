@@ -25,15 +25,21 @@ import android.widget.ListView;
 import com.example.pinpoint.models.Pin;
 import com.example.pinpoint.models.PinResult;
 import com.example.pinpoint.models.PinResult.PinObject;
+import com.example.pinpoint.models.TeamResult.TeamObject;
 import com.example.pinpoint.resources.Global;
 
 public class MainActivity extends FragmentActivity {
 	private ListView mListView;
 	private Context context;
 	private static GetPins mGetPins;
+	private static GetTeams mGetTeams;
+	private static GetNotifications mGetNotifications;
 	private PinAdapter pinAdapter;
+	private TeamAdapter teamAdapter;
 	
 	private static PinsFragment mPinsFragment;
+	private static TeamsFragment mTeamsFragment;
+	private static NotificationsFragment mNotificationsFragment;
 
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -50,6 +56,8 @@ public class MainActivity extends FragmentActivity {
 	 */
 	ViewPager mViewPager;
 	ListView pinlist;
+	ListView teamList;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +75,7 @@ public class MainActivity extends FragmentActivity {
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 		
 		mGetPins = new GetPins();
+		mGetTeams = new GetTeams();
 	}
 
 	@Override
@@ -138,7 +147,47 @@ public class MainActivity extends FragmentActivity {
 			// slow network.
 		}
 	}
+	
+	/**
+	 * Represents an asynchronous login/registration task used to authenticate
+	 * the user.
+	 */
+	public class GetTeams extends AsyncTask<Void, Void, Void> {
+		@SuppressWarnings("unchecked")
+		@Override
+		protected Void doInBackground(Void... params) {
 
+			Global.getClient().pins(new Callback<PinResult>() {
+
+				@Override
+				public void success(PinResult result, Response response) {
+					List<TeamObject> teams = result.getRows();
+					teamAdapter = new teamAdapter(context,teams);
+					mTeamsFragment.setListAdapter(pinAdapter);
+					mGetTeams = null;
+					// close PinActivity, or load ViewPinActivity, or whatever
+					// you want now.
+				}
+
+				@Override
+					public void failure(RetrofitError retrofitError) {
+
+					// do something with the error and failure
+					mGetTeams = null;
+				}
+			});
+			return null;
+		}
+
+		@Override
+		protected void onCancelled() {
+			mGetTeams = null;
+			//showProgress(false); //copy from LoginTask to show a spinning
+			// wheel
+			// this allows you to show the user that something is loading on
+			// slow network.
+		}
+	}
 	/**
 	 * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
 	 * one of the sections/tabs/pages.
@@ -255,12 +304,8 @@ public class MainActivity extends FragmentActivity {
 		@Override
 		public void onActivityCreated(Bundle savedInstanceState) {
 			super.onActivityCreated(savedInstanceState);
-			String[] values = new String[] { "Team1", "Team2", "Team3",
-					"Team4", "Team5", "Team6", "Team7", "Team8", "Team9",
-					"Team10", "Team11", "Team12", "Team13" };
-			ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-					getActivity(), android.R.layout.simple_list_item_1, values);
-			setListAdapter(adapter);
+			mTeamsFragment = this;
+			mGetTeams.execute();
 		}
 	}
 

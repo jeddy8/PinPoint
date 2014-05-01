@@ -4,7 +4,7 @@ import java.util.List;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.annotations.SerializedName;
 
-public class Teams {
+public class Team {
 
 
 		@SerializedName("teamleader")
@@ -19,14 +19,14 @@ public class Teams {
 		@SerializedName("events")
 		List<Double> events;
 		
-		public Teams(List<Double> location, String type) {
+		public Team(List<Double> location, String type) {
 			this.teamLeader = teamLeader;
 			this.teamName = teamName;
 			this.teamMembers = teamMembers;
 			this.events = events;
 		}
 		
-		public Teams() {
+		public Team() {
 			// TODO Auto-generated constructor stub
 		}
 

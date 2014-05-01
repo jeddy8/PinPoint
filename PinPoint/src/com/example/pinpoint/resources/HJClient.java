@@ -15,10 +15,10 @@ import retrofit.http.PUT;
  */
 public interface HJClient {
 
-	@POST("/user")
+	@POST("/pinpoint")
 	void login(@Body User user, Callback<User> callback);
 	
-	@PUT("/pins")
+	@PUT("/pinpoint")
 	void updatePin(@Body Pin pin, Callback<Pin> callback);
 	
 	@POST("/pinpoint")
@@ -28,11 +28,11 @@ public interface HJClient {
 	void pins(Callback<PinResult> callback);
 	
 	@POST("/teams")
-	void teams(@Body Teams team, Callback<Teams> callback);
+	void teams(@Body Team team, Callback<Team> callback);
 	
-	@GET("/pins")
-	void updatTeams(@Body Teams team, Callback<Teams> callback);
+	@PUT("/pinpoint")
+	void updatTeams(@Body Team team, Callback<Team> callback);
 	
-	@GET("/teams")
-	void team(Callback<List<Teams>> callback);
+	@GET("/pinpoint/_design/teams/_views/all")
+	void team(Callback<List<Team>> callback);
 }
