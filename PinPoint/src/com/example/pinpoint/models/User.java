@@ -1,6 +1,7 @@
 package com.example.pinpoint.models;
 import android.content.Context;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 import com.example.pinpoint.resources.Global;
 import com.google.gson.annotations.SerializedName;
@@ -43,9 +44,10 @@ public class User {
 	
 	public void login(){
 		this.isLoggedIn = true;
-		TelephonyManager tMgr = (TelephonyManager) Global.getContext().getSystemService(Context.TELEPHONY_SERVICE);
-		this.phone = tMgr.getLine1Number();
-		Global.getDatabase().addUser(this._id,this.name,this.email,this.phone,this.role);
+		//TelephonyManager tMgr = (TelephonyManager) Global.getContext().getSystemService(Context.TELEPHONY_SERVICE);
+
+		//this.phone = tMgr.getLine1Number();
+		//Global.getDatabase().addUser(this._id,this.name,this.email,this.phone,this.role);
 	}
 	
 	public void setEmail(String email){
@@ -62,6 +64,22 @@ public class User {
 	
 	public String getReputation(){
 		return reputation;
+	}
+
+	public String get_id() {
+		return _id;
+	}
+
+	public void set_id(String _id) {
+		this._id = _id;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }
 

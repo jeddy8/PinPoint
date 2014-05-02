@@ -1,6 +1,7 @@
 package com.example.pinpoint.resources;
 
 import com.example.pinpoint.models.*;
+import com.example.pinpoint.models.PinResult.PinObject;
 
 import java.util.List;
 
@@ -9,23 +10,24 @@ import retrofit.http.Body;
 import retrofit.http.GET;
 import retrofit.http.POST;
 import retrofit.http.PUT;
+import retrofit.http.Path;
 
 /**
  * Created by root on 3/26/14.
  */
 public interface HJClient {
 
-	@POST("/pinpoint")
+	@POST("/users")
 	void login(@Body User user, Callback<User> callback);
 	
 	@PUT("/pinpoint")
 	void updateUser(@Body User user, Callback<User> callback);
 	
-	@GET("/pinpoint/_design/user/_view/all")
+	@GET("/users/_design/users/_view/all")
 	void user(Callback<UserResult> callback);
 	
-	@PUT("/pinpoint")
-	void updatePin(@Body Pin pin, Callback<Pin> callback);
+	@PUT("/pinpoint/{id}")
+	void updatePin(@Path("id") String id, @Body PinObject pin, Callback<Pin> callback);
 	
 	@POST("/pinpoint")
 	void pinIt(@Body Pin pin, Callback<Pin> callback);

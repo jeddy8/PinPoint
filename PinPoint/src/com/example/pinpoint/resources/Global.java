@@ -15,7 +15,7 @@ public class Global {
 	private static User user = new User();
 
 	private static Context context;
-	private static Database database;
+	private static Database database = new Database(context);
 	private static LocationManager locationManager = null;
 	
 

@@ -49,18 +49,16 @@ public class PinResult {
 	public class PinObject {
 		@SerializedName("id")
 		private String id;
-
-		@SerializedName("key")
-		private String key;
 		
-		@SuppressWarnings("unused")
-		public String getKey() {
-			return key;
+		@SerializedName("rev")
+		private String rev;	
+		
+		public String getRev() {
+			return this.rev;
 		}
 
-		@SuppressWarnings("unused")
-		public void setKey(String key) {
-			this.key = key;
+		public void setRev(String rev) {
+			this.rev = rev;
 		}
 
 		@SuppressWarnings("unused")

@@ -10,7 +10,7 @@
         android:id="@+id/action_map"
         android:orderInCategory="100"
         android:showAsAction="never"
-        android:title="@string/action_map"/>
+        android:title="@string/title_activity_create_team"/>
     
     <item
         android:id="@+id/action_createTeam"

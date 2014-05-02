@@ -1,17 +1,40 @@
 package com.example.pinpoint;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+
+import com.example.pinpoint.PinActivity.pinItTask;
+import com.example.pinpoint.models.Pin;
+import com.example.pinpoint.models.Team;
+import com.example.pinpoint.resources.Global;
+
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
+import android.content.Context;
+import android.location.Location;
+import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.os.Build;
 
+
+
+
 public class CreateTeamActivity extends Activity {
+	
+	private createTask mCreateTask;
+	private String mTeamName;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +45,17 @@ public class CreateTeamActivity extends Activity {
 			getFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
+		
+		findViewById(R.id.create_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            	EditText edtTxt = (EditText)findViewById(R.id.teamname);
+            	mTeamName = edtTxt.getText().toString();
+            	
+            	mCreateTask = new createTask();
+            	mCreateTask.execute();
+            }
+        });
 	}
 
 	@Override
@@ -60,5 +94,36 @@ public class CreateTeamActivity extends Activity {
 			return rootView;
 		}
 	}
+	
+	public class createTask extends AsyncTask<Void, Void, Void> {
+        @SuppressWarnings("unchecked")
+		@Override
+        protected Void doInBackground(Void... params) {
+        	Team team = new Team();
+        	team.setTeamName(mTeamName);
+            Global.getClient().team(team, new Callback() {
+            
+                @Override
+                public void success(Object o, Response response) {
+                    //finish();
+                }
+
+                @Override
+                public void failure(RetrofitError retrofitError) {
+                    
+                	//do something with the error and failure
+                	
+                }
+            });
+            return null;
+        }
+
+        @Override
+        protected void onCancelled() {
+            mCreateTask = null;
+            //showProgress(false); //copy from LoginTask to show a spinning wheel
+            //this allows you to show the user that something is loading on slow network.
+        }
+    }
 
 }

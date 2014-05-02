@@ -23,14 +23,12 @@ public class Pin {
 		this.location = location;
 		this.type = type;
 		this.description = description;
-		this.color = color;
 	}
 	
 	public Pin(List<Double> location, String type, String description) {
 		this.location = location;
 		this.type = type;
 		this.description = description;
-		this.color = color;
 	}
 
 	public Pin() {
@@ -64,8 +62,12 @@ public class Pin {
 	public Float getColor() {
 		return color;
 	}
+	
+	public void colorIntensity(){
+		color = color-10;
+	}
 
-	public void setColor() {
+	public void setColor(float color) {
 		this.color = color;
 	}
 }

@@ -8,8 +8,12 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
+import com.example.pinpoint.MainActivity.GetPins;
+import com.example.pinpoint.models.LocationTools;
 import com.example.pinpoint.models.Pin;
+import com.example.pinpoint.models.PinResult;
 import com.example.pinpoint.models.User;
+import com.example.pinpoint.models.PinResult.PinObject;
 import com.example.pinpoint.resources.Global;
 import com.google.android.gms.maps.model.LatLng;
 
@@ -34,16 +38,18 @@ import android.widget.Spinner;
 import android.os.Build;
 
 public class PinActivity extends Activity {
-
+	
+	private static GetPins mGetPins;
 	private Spinner spinner;
 	
 	private pinItTask mPinItTask;
-	
-	private View mPinDescription;
-	
-	
+	private updateColor mUpdateColor;
 	private Location mLocation;
 	private String mDescription;
+	
+	private List<PinObject> pins;
+	private PinObject workingPin;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -54,8 +60,6 @@ public class PinActivity extends Activity {
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
 		
-		mPinDescription = findViewById(R.id.description);
-		
 		spinner = (Spinner) findViewById(R.id.type_spinner);
 		// Create an ArrayAdapter using the string array and a default spinner layout
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -65,6 +69,8 @@ public class PinActivity extends Activity {
 		// Apply the adapter to the spinner
 		spinner.setAdapter(adapter);
 		
+		mGetPins = new GetPins();
+		mGetPins.execute();
 		
 		findViewById(R.id.pin_button).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,9 +79,7 @@ public class PinActivity extends Activity {
             	mLocation = locMgr.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             	EditText edtTxt = (EditText)findViewById(R.id.description);
             	mDescription = edtTxt.getText().toString();
-            	
-            	mPinItTask = new pinItTask();
-            	mPinItTask.execute();
+            	pinIt();
             }
         });
 	}
@@ -101,30 +105,36 @@ public class PinActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
-//	public void pinIt(){
-//		LocationManager locMgr =  (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-//    	Location loc = locMgr.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-//    	LatLng latlng = new LatLng(loc.getLatitude(), loc.getLongitude());
-//    	
-//    	Boolean done = false;
-//    	
-//    	float[] results = new float[1];
-//    	for (Pin p : PinDB.pins){
-//    		LatLng pos = p.getLocation();
-//        	Location.distanceBetween(latlng.latitude, latlng.longitude, pos.latitude, pos.longitude, results);
-//        	if (results[0] <= 5.0) {
-//        		p.colorIntensity();
-//        		done = true;
-//        	}
-//        }
-//    	if (!done){
-//	    	EditText edtTxt = (EditText)findViewById(R.id.description);
-//	    	String description = edtTxt.getText().toString();
-//	    	String address = new LocationTools().convertToAddress(getBaseContext(),latlng);
-//	    	PinDB.pins.add(new Pin(latlng,spinner.getSelectedItem().toString(),
-//	    			description, address));
-//    	}
-//	}
+	public void pinIt(){
+		
+		LocationManager locMgr =  (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+    	Location loc = locMgr.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+    	LatLng latlng = new LatLng(loc.getLatitude(), loc.getLongitude());
+    	
+    	Boolean done = false;
+    	
+    	float[] results = new float[1];
+    	for (PinObject po : pins){
+    		Pin p = po.getPin();
+    		Log.i("tset", p.getDescription());
+    		List<Double> pos = p.getLocation();
+        	Location.distanceBetween(latlng.latitude, latlng.longitude, pos.get(0), pos.get(1), results);
+        	if (results[0] <= 10.0) {
+        		workingPin = po;
+        		Log.i("tset", Float.toString(results[0]));
+        		mUpdateColor = new updateColor();
+        		mUpdateColor.execute();
+        		done = true;
+        	}
+        }
+    	if (!done){
+	    	EditText edtTxt = (EditText)findViewById(R.id.description);
+	    	String description = edtTxt.getText().toString();
+	    	//String address = new LocationTools().convertToAddress(getBaseContext(),latlng);
+	    	mPinItTask = new pinItTask();
+        	mPinItTask.execute();
+    	}
+	}
 
 	/**
 	 * A placeholder fragment containing a simple view.
@@ -158,6 +168,7 @@ public class PinActivity extends Activity {
         	pin.setType(spinner.getSelectedItem().toString());
         	pin.setLocation(loc);
         	pin.setDescription(mDescription);
+        	pin.setColor(180);
             Global.getClient().pinIt(pin, new Callback() {
             
                 @Override
@@ -183,5 +194,81 @@ public class PinActivity extends Activity {
             //this allows you to show the user that something is loading on slow network.
         }
     }
+    
+    public class updateColor extends AsyncTask<Void, Void, Void> {
+        @SuppressWarnings("unchecked")
+		@Override
+        protected Void doInBackground(Void... params) {
+        	Log.i("id", workingPin.getId());
+        	Log.i("rev", workingPin.getRev());
+        	Pin p = workingPin.getPin();
+        	p.setColor(p.getColor()-10);
+        	p.setDescription("test");
+        	workingPin.setPin(p);
+            Global.getClient().updatePin(workingPin.getId(),workingPin, new Callback() {
+            
+                @Override
+                public void success(Object o, Response response) {
+                	Pin pin = (Pin) o;
+                	Log.i("response", "SFGDSFGSDHS");
+                	Log.i("response", response.toString());
+                    //finish();
+                }
+
+                @Override
+                public void failure(RetrofitError retrofitError) {
+                	Log.i("response", retrofitError.getResponse().getReason());
+                	//do something with the error and failure
+                	
+                }
+            });
+            return null;
+        }
+
+        @Override
+        protected void onCancelled() {
+            mPinItTask = null;
+            //showProgress(false); //copy from LoginTask to show a spinning wheel
+            //this allows you to show the user that something is loading on slow network.
+        }
+    }
+    
+    public class GetPins extends AsyncTask<Void, Void, Void> {
+		@SuppressWarnings("unchecked")
+		@Override
+		protected Void doInBackground(Void... params) {
+
+			Global.getClient().pins(new Callback<PinResult>() {
+
+				@Override
+				public void success(PinResult result, Response response) {
+					pins = result.getRows();
+				}
+				
+
+				@Override
+					public void failure(RetrofitError retrofitError) {
+					Log.i("Activity", retrofitError.toString());
+					// do something with the error and failure
+				}
+				
+				
+			});
+			return null;
+		}/*
+		@Override
+		protected void onPostExecute(Void result) {
+		    pinAdapter.notifyDataSetChanged();
+		}*/
+
+		@Override
+		protected void onCancelled() {
+			mGetPins = null;
+			//showProgress(false); //copy from LoginTask to show a spinning
+			// wheel
+			// this allows you to show the user that something is loading on
+			// slow network.
+		}
+	}
 
 }
