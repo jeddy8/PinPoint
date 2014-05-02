@@ -125,6 +125,7 @@ public class MainActivity extends FragmentActivity {
 					// close PinActivity, or load ViewPinActivity, or whatever
 					// you want now.
 				}
+				
 
 				@Override
 					public void failure(RetrofitError retrofitError) {
@@ -132,8 +133,14 @@ public class MainActivity extends FragmentActivity {
 					// do something with the error and failure
 					mGetPins = null;
 				}
+				
+				
 			});
 			return null;
+		}
+		@Override
+		protected void onPostExecute(Void result) {
+		    pinAdapter.notifyDataSetChanged();
 		}
 
 		@Override
