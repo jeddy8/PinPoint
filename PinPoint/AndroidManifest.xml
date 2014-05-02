@@ -52,6 +52,10 @@
             android:name="com.example.pinpoint.MapActivity"
             android:label="@string/title_activity_map" >
         </activity>
+        <activity
+            android:name="com.example.pinpoint.CreateTeamActivity"
+            android:label="@string/title_activity_create_team" >
+        </activity>
     </application>
 
 </manifest>

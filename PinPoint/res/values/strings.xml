@@ -13,6 +13,10 @@
     <string name="title_activity_view_pin">Pin</string>
     <string name="title_activity_pin">Pin It</string>
     <string name="title_activity_map">Pins</string>
+    <string name="prompt_teamname">Team Name</string>
+     <string name="createTeam_btn">Create Team</string>
+     <string name="title_activity_create_team">Create a Team</string>
+      
     
 
 </resources>

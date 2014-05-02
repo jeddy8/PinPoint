@@ -100,6 +100,12 @@ public class MainActivity extends FragmentActivity {
 			// answerData.putExtra("qToAnswer", qToAnswer);
 			startActivity(mapfeed);
 			finish();
+		case R.id.action_createTeam:
+			Intent teamFeed = new Intent(getApplicationContext(),
+					CreateTeamActivity.class);
+			// answerData.putExtra("qToAnswer", qToAnswer);
+			startActivity(teamFeed);
+			finish();
 		default:
 			return super.onOptionsItemSelected(item);
 		}
@@ -138,11 +144,11 @@ public class MainActivity extends FragmentActivity {
 				
 			});
 			return null;
-		}
+		}/*
 		@Override
 		protected void onPostExecute(Void result) {
 		    pinAdapter.notifyDataSetChanged();
-		}
+		}*/
 
 		@Override
 		protected void onCancelled() {
