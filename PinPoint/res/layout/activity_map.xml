@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     tools:context=".MapActivity" >
 
-    
+    <!-- - 
     <EditText
         android:id="@+id/pic"
         android:layout_width="match_parent"
@@ -24,12 +24,12 @@
         android:paddingLeft="32dp"
         android:paddingRight="32dp"
         android:text="@string/action_pin_btn" />
+        -->
     
     <fragment
         android:id="@+id/map"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/pin_button"
         class="com.google.android.gms.maps.MapFragment" />
 
 </RelativeLayout> 

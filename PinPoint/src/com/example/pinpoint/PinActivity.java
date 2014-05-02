@@ -80,6 +80,10 @@ public class PinActivity extends Activity {
             	EditText edtTxt = (EditText)findViewById(R.id.description);
             	mDescription = edtTxt.getText().toString();
             	pinIt();
+            	
+            	Intent backfeed = new Intent(getApplicationContext(),
+    					MainActivity.class);
+    			startActivity(backfeed);
             }
         });
 	}

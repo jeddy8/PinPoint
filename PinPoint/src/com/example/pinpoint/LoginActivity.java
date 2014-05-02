@@ -84,7 +84,7 @@ public class LoginActivity extends Activity {
         findViewById(R.id.sign_in_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                login();
+                attemptLogin();
             }
         });
     }

@@ -40,14 +40,6 @@ public class MapActivity extends Activity {
 		
 		map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
 				.getMap();
-		Marker mtnlair = map.addMarker(new MarkerOptions().position(MTNLAIR)
-				.title("Mountainlair"));
-		Marker esb = map.addMarker(new MarkerOptions()
-				.position(ESB)
-				.title("ESB")
-				.snippet("description")
-				.icon(BitmapDescriptorFactory
-						.fromResource(R.drawable.ic_launcher)));
 		
 		double loc[] = getIntent().getDoubleArrayExtra("pin");
 		LatLng latlng = new LatLng(loc[0],loc[1]);

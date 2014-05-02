@@ -16,6 +16,7 @@ import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
@@ -54,6 +55,10 @@ public class CreateTeamActivity extends Activity {
             	
             	mCreateTask = new createTask();
             	mCreateTask.execute();
+            	
+            	Intent backfeed = new Intent(getApplicationContext(),
+    					MainActivity.class);
+    			startActivity(backfeed);
             }
         });
 	}

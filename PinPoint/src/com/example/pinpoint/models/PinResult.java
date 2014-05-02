@@ -67,7 +67,7 @@ public class PinResult {
 		}
 
 		public String getRev() {
-			return this.rev;
+			return rev;
 		}
 
 		public void setRev(String rev) {
