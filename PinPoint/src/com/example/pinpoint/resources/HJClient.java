@@ -33,12 +33,12 @@ public interface HJClient {
 	@GET("/pinpoint/_design/pins/_view/all")
 	void pins(Callback<PinResult> callback);
 	
-	@POST("/teams")
-	void teams(@Body Team team, Callback<Team> callback);
+	@POST("/pinpoint")
+	void team(@Body Team team, Callback<Team> callback);
 	
 	@PUT("/pinpoint")
 	void updatTeams(@Body Team team, Callback<Team> callback);
 	
-	@GET("/pinpoint/_design/teams/_views/all")
-	void team(Callback<List<Team>> callback);
+	@GET("/pinpoint/_design/teams/_view/all")
+	void teams(Callback<TeamResult> callback);
 }

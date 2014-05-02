@@ -25,6 +25,7 @@ import android.widget.ListView;
 import com.example.pinpoint.models.Pin;
 import com.example.pinpoint.models.PinResult;
 import com.example.pinpoint.models.PinResult.PinObject;
+import com.example.pinpoint.models.TeamResult;
 import com.example.pinpoint.models.TeamResult.TeamObject;
 import com.example.pinpoint.resources.Global;
 
@@ -32,9 +33,9 @@ public class MainActivity extends FragmentActivity {
 	private ListView mListView;
 	private Context context;
 	private static GetPins mGetPins;
-	//private static GetTeams mGetTeams;
+	private static GetTeams mGetTeams;
 	private PinAdapter pinAdapter;
-	//private TeamAdapter teamAdapter;
+	private TeamAdapter teamAdapter;
 	
 	private static PinsFragment mPinsFragment;
 	private static TeamsFragment mTeamsFragment;
@@ -53,8 +54,8 @@ public class MainActivity extends FragmentActivity {
 	 * The {@link ViewPager} that will host the section contents.
 	 */
 	ViewPager mViewPager;
-	ListView pinlist;
-	ListView teamList;
+	//ListView pinlist;
+	//ListView teamList;
 	
 
 	@Override
@@ -62,7 +63,7 @@ public class MainActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		context = getApplicationContext();
-		mListView = new ListView(this);
+		//mListView = new ListView(this);
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the app.
 		mSectionsPagerAdapter = new SectionsPagerAdapter(
@@ -73,7 +74,7 @@ public class MainActivity extends FragmentActivity {
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 		
 		mGetPins = new GetPins();
-		//mGetTeams = new GetTeams();
+		mGetTeams = new GetTeams();
 	}
 
 	@Override
@@ -153,46 +154,46 @@ public class MainActivity extends FragmentActivity {
 		}
 	}
 	
-//	/**
-//	 * Represents an asynchronous login/registration task used to authenticate
-//	 * the user.
-//	 */
-//	public class GetTeams extends AsyncTask<Void, Void, Void> {
-//		@SuppressWarnings("unchecked")
-//		@Override
-//		protected Void doInBackground(Void... params) {
-//
-//			Global.getClient().pins(new Callback<PinResult>() {
-//
-//				@Override
-//				public void success(PinResult result, Response response) {
-//					List<TeamObject> teams = result.getRows();
-//					teamAdapter = new teamAdapter(context,teams);
-//					mTeamsFragment.setListAdapter(pinAdapter);
-//					mGetTeams = null;
-//					// close PinActivity, or load ViewPinActivity, or whatever
-//					// you want now.
-//				}
-//
-//				@Override
-//					public void failure(RetrofitError retrofitError) {
-//
-//					// do something with the error and failure
-//					mGetTeams = null;
-//				}
-//			});
-//			return null;
-//		}
-//
-//		@Override
-//		protected void onCancelled() {
-//			mGetTeams = null;
-//			//showProgress(false); //copy from LoginTask to show a spinning
-//			// wheel
-//			// this allows you to show the user that something is loading on
-//			// slow network.
-//		}
-//	}
+	/**
+	 * Represents an asynchronous login/registration task used to authenticate
+	 * the user.
+	 */
+	public class GetTeams extends AsyncTask<Void, Void, Void> {
+		@SuppressWarnings("unchecked")
+		@Override
+		protected Void doInBackground(Void... params) {
+
+			Global.getClient().teams(new Callback<TeamResult>() {
+
+				@Override
+				public void success(TeamResult result, Response response) {
+					List<TeamObject> teams = result.getRows();
+					teamAdapter = new TeamAdapter(context,teams);
+					mTeamsFragment.setListAdapter(teamAdapter);
+					//mGetTeams = null;
+					// close PinActivity, or load ViewPinActivity, or whatever
+					// you want now.
+				}
+
+				@Override
+					public void failure(RetrofitError retrofitError) {
+
+					// do something with the error and failure
+					mGetTeams = null;
+				}
+			});
+			return null;
+		}
+
+		@Override
+		protected void onCancelled() {
+			mGetTeams = null;
+			//showProgress(false); //copy from LoginTask to show a spinning
+			// wheel
+			// this allows you to show the user that something is loading on
+			// slow network.
+		}
+	}
 	
 	/**
 	 * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -269,8 +270,6 @@ public class MainActivity extends FragmentActivity {
 		 */
 		public static final String ARG_SECTION_NUMBER = "section_number";
 
-		// public ArrayList<Pin> pins = new ArrayList<Pin>();
-
 		public PinsFragment() {
 		}
 
@@ -290,7 +289,7 @@ public class MainActivity extends FragmentActivity {
 			super.onListItemClick(l, v, position, id);
 			// String pinStuff = (String) l.getItemAtPosition(position);
 			Intent pinData = new Intent(getActivity().getBaseContext(),
-					ViewPinActivity.class);
+					MapActivity.class);
 			// answerData.putExtra("qToAnswer", qToAnswer);
 			// pinData.putExtra("pin", pins.get(position));
 			startActivity(pinData);
@@ -311,7 +310,7 @@ public class MainActivity extends FragmentActivity {
 		public void onActivityCreated(Bundle savedInstanceState) {
 			super.onActivityCreated(savedInstanceState);
 			mTeamsFragment = this;
-			//mGetTeams.execute();
+			mGetTeams.execute();
 		}
 	}
 
