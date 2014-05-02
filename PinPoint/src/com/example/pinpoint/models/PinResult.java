@@ -53,6 +53,19 @@ public class PinResult {
 		@SerializedName("rev")
 		private String rev;	
 		
+		@SerializedName("deleted")
+		private Boolean deleted;
+		
+		
+		
+		public Boolean getDeleted() {
+			return deleted;
+		}
+
+		public void setDeleted(Boolean deleted) {
+			this.deleted = deleted;
+		}
+
 		public String getRev() {
 			return this.rev;
 		}

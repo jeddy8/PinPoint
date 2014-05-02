@@ -101,6 +101,7 @@ public class CreateTeamActivity extends Activity {
         protected Void doInBackground(Void... params) {
         	Team team = new Team();
         	team.setTeamName(mTeamName);
+        	team.setTeamLeader(Global.getUser().getName());
             Global.getClient().team(team, new Callback() {
             
                 @Override

@@ -128,9 +128,6 @@ public class PinActivity extends Activity {
         	}
         }
     	if (!done){
-	    	EditText edtTxt = (EditText)findViewById(R.id.description);
-	    	String description = edtTxt.getText().toString();
-	    	//String address = new LocationTools().convertToAddress(getBaseContext(),latlng);
 	    	mPinItTask = new pinItTask();
         	mPinItTask.execute();
     	}
@@ -199,20 +196,30 @@ public class PinActivity extends Activity {
         @SuppressWarnings("unchecked")
 		@Override
         protected Void doInBackground(Void... params) {
-        	Log.i("id", workingPin.getId());
-        	Log.i("rev", workingPin.getRev());
         	Pin p = workingPin.getPin();
-        	p.setColor(p.getColor()-10);
-        	p.setDescription("test");
+        	p.colorIntensity();
         	workingPin.setPin(p);
-            Global.getClient().updatePin(workingPin.getId(),workingPin, new Callback() {
+        	
+        	 Global.getClient().deletePin(workingPin.getId(), new Callback() {
+                 
+                 @Override
+                 public void success(Object o, Response response) {
+                 	Pin pin = (Pin) o;
+                 }
+
+                 @Override
+                 public void failure(RetrofitError retrofitError) {
+                 	Log.i("response", retrofitError.getResponse().getReason());
+                 	//do something with the error and failure
+                 	
+                 }
+             });
+        	
+            Global.getClient().updatePin(workingPin.getId(),p, new Callback() {
             
                 @Override
                 public void success(Object o, Response response) {
                 	Pin pin = (Pin) o;
-                	Log.i("response", "SFGDSFGSDHS");
-                	Log.i("response", response.toString());
-                    //finish();
                 }
 
                 @Override

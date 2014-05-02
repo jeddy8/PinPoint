@@ -39,6 +39,8 @@ public class MainActivity extends FragmentActivity {
 	
 	private static PinsFragment mPinsFragment;
 	private static TeamsFragment mTeamsFragment;
+	
+	private List<PinObject> pins;
 
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -124,7 +126,7 @@ public class MainActivity extends FragmentActivity {
 
 				@Override
 				public void success(PinResult result, Response response) {
-					List<PinObject> pins = result.getRows();
+					pins = result.getRows();
 					
 					pinAdapter = new PinAdapter(context, pins);
 					mPinsFragment.setListAdapter(pinAdapter);
@@ -285,8 +287,7 @@ public class MainActivity extends FragmentActivity {
 			
 			mPinsFragment = this;
 			mGetPins.execute();
-			// PinAdapter adapter = new PinAdapter(getActivity(),pin);
-			// setListAdapter(adapter);
+
 		}
 
 		@Override
@@ -297,7 +298,14 @@ public class MainActivity extends FragmentActivity {
 			Intent pinData = new Intent(getActivity().getBaseContext(),
 					MapActivity.class);
 			// answerData.putExtra("qToAnswer", qToAnswer);
-			// pinData.putExtra("pin", pins.get(position));
+			double m[] = {0,0};
+			PinObject po = (PinObject) l.getItemAtPosition(position);
+			Pin p = po.getPin();
+			Log.i("pin", p.getDescription());
+			m[0]= p.getLocation().get(0);
+			m[1]= p.getLocation().get(1);
+			Log.i("pin", Double.toString(m[0]));
+			pinData.putExtra("pin", m);
 			startActivity(pinData);
 		}
 	}

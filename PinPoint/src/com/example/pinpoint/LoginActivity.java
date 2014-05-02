@@ -55,6 +55,8 @@ public class LoginActivity extends Activity {
 
         setContentView(R.layout.activity_login);
         
+        Global.getUser().setName("Kevin Perkins");
+        
         //Global.getDatabase().addUser("user", "Kevin", "user@mail.com", "555-555-5555",	"user");
         
 

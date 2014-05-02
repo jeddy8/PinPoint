@@ -29,6 +29,8 @@ public class MapActivity extends Activity {
 	static final LatLng ESB = new LatLng(39.645480, -79.973254);
 	private GoogleMap map;
 	private mapIt mMapIt;
+	
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +48,12 @@ public class MapActivity extends Activity {
 				.snippet("description")
 				.icon(BitmapDescriptorFactory
 						.fromResource(R.drawable.ic_launcher)));
+		
+		double loc[] = getIntent().getDoubleArrayExtra("pin");
+		LatLng latlng = new LatLng(loc[0],loc[1]);
 
 		// Move the camera instantly to esb with a zoom of 15.
-		map.moveCamera(CameraUpdateFactory.newLatLngZoom(ESB, 20));
+		map.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng, 20));
 
 		// Zoom in, animating the camera.
 		map.animateCamera(CameraUpdateFactory.zoomTo(15), 2000, null);

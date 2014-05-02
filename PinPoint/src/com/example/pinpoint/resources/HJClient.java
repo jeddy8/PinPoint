@@ -7,6 +7,7 @@ import java.util.List;
 
 import retrofit.Callback;
 import retrofit.http.Body;
+import retrofit.http.DELETE;
 import retrofit.http.GET;
 import retrofit.http.POST;
 import retrofit.http.PUT;
@@ -26,8 +27,11 @@ public interface HJClient {
 	@GET("/users/_design/users/_view/all")
 	void user(Callback<UserResult> callback);
 	
+	@DELETE("/pinpoint/{id}")
+	void deletePin(@Path("id") String id, Callback<Pin> callback);
+	
 	@PUT("/pinpoint/{id}")
-	void updatePin(@Path("id") String id, @Body PinObject pin, Callback<Pin> callback);
+	void updatePin(@Path("id") String id, @Body Pin pin, Callback<Pin> callback);
 	
 	@POST("/pinpoint")
 	void pinIt(@Body Pin pin, Callback<Pin> callback);
